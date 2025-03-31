@@ -1,7 +1,7 @@
 import { OctagonAlert } from "lucide-react"
-import { useModalContext } from "../../Functions/Context/ModalContext"
+import { useModalContext } from "../../utils/Context/ModalContext"
 import { useRef } from 'react'
-import useClickOutSide from "../../Functions/Hooks/useClickOutSide"
+import useClickOutSide from "../../utils/Hooks/useClickOutSide"
 
 export default function DeleteModal({ name }) {
   const { selectedItem, setSelectedItem, setActiveModal, setRowIndex } = useModalContext()

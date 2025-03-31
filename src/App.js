@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { Routes } from "react-router-dom";
-
 import SideBar from "./Components/Common/SideBar";
-import Login from "./Authentification/Login";
+import Login from "./Auth/Login";
 import { adminRoutes } from "./Routes/AdminRoutes";
 import { teacherRoutes } from "./Routes/TeacherRoutes";
-
+import { AbsenceManagerRoutes } from "./Routes/AbsenceManagerRoutes";
 function App() {
   const [role ,setRole] = useState(localStorage.getItem('userRole') || false)
   localStorage.setItem('userRole',role)
@@ -33,6 +32,7 @@ function App() {
                 <Routes > 
                   { role === 'Admin' && adminRoutes}
                   { role === 'Teacher' && teacherRoutes}
+                  { role === 'Absence Manager' && AbsenceManagerRoutes}
                 </Routes>
             </div>
         </div>

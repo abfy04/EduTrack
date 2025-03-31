@@ -1,7 +1,7 @@
 import {  
   School, LayoutGrid, ClipboardList, User,
   CalendarFold, Sun, Moon, LogOut,
-  TrafficCone, History, Users, Bolt
+  TrafficCone, History, Users, Bolt, GraduationCap,CheckCircle
 } from 'lucide-react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useState, useCallback } from 'react';
@@ -34,6 +34,37 @@ const links = {
       description: 'System settings'
     }
   ],
+  'Absence Manager': [
+    {
+      pageName: 'Dashboard',
+      pageLink: '/',
+      description: 'Overview and analytics'
+    },
+
+
+    {
+      pageName: 'Justification',
+      pageLink: '/justification',
+      description: 'Give a reason for the absence'
+    },
+    {
+      pageName: 'Absence List',
+      pageLink: '/absenceListes',
+      description: 'View and manage absence list'
+    },
+    {
+      pageName: 'Schedules',
+      pageLink: '/schedules',
+      description: 'View groups schedule'
+    },  
+    {
+      pageName: 'Students',
+      pageLink: '/students',
+      description: 'View students list'
+    }
+
+    
+  ],
   'Teacher': [
     { 
       pageName: 'Schedule',
@@ -64,6 +95,13 @@ const icons = {
     'Historiques': <History size={size} />,
     'Configuration': <Bolt size={size} />
   },
+  'Absence Manager': {
+    'Dashboard': <LayoutGrid size={size} />,
+    'Justification': <CheckCircle size={size} />,
+    'Absence List': <ClipboardList size={size} />,
+    'Schedules': <CalendarFold size={size}/>,
+    'Students': <GraduationCap size={size}/>
+  },
   'Teacher': {
     'Track Progress': <TrafficCone size={size} />,
     'Schedule': <CalendarFold size={size}/>,
@@ -90,12 +128,18 @@ export default function SideBar({ darkMode, setDarkMode, role, setRole }) {
 
   const logOut = () => {
     localStorage.setItem('userRole', false);
+    localStorage.removeItem('theme');
     navigate('/');
     setRole(null);
   };
 
   const activeLinks = links[role];
   const activeIcons = icons[role];
+  const roleIconsStyle = {
+    'Admin': 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300',
+    'Absence Manager':  'bg-orange-100 text-orange-700 dark:bg-orange-900/50 dark:text-orange-300',
+    'Teacher': 'bg-green-100 text-green-700 dark:bg-green-900/50 dark:text-green-300'
+  }
 
   return (
     <aside 
@@ -207,11 +251,7 @@ export default function SideBar({ darkMode, setDarkMode, role, setRole }) {
               hover:bg-gray-50 dark:hover:bg-gray-800/50
               transition-all duration-200 ${isExpanded ? ' justify-start' : ' justify-center'}`}
           >
-            <div className={`min-w-8 h-8 rounded-full flex items-center justify-center
-              ${role === 'Admin' 
-                ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300' 
-                : 'bg-orange-100 text-orange-700 dark:bg-orange-900/50 dark:text-orange-300'
-              }`}>
+            <div className={`min-w-8 h-8 rounded-full flex items-center justify-center ${roleIconsStyle[role]}`}>
               <User size={20}/>
             </div>
             <div className={`flex flex-col transition-opacity duration-300 ${isExpanded ? 'block' : 'hidden'}`}>

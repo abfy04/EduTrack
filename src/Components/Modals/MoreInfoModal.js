@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useModalContext } from '../../Functions/Context/ModalContext'
+import { useModalContext } from '../../utils/Context/ModalContext'
 
 import { Expand, Minimize2, XOctagon, Edit, Printer } from 'lucide-react'
 import DisplaySchedule from '../Schedule/DisplaySchedule'

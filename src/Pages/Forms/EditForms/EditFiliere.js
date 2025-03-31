@@ -1,10 +1,11 @@
 import { PencilRuler,ArrowLeft,Ruler } from "lucide-react";
 import { useParams,useNavigate } from "react-router-dom";
-import { filieres } from "../../Data/Users";
-import Form from "../../Components/Form/Form";
-import FormContainer from '../../Components/Form/FormContainer'
-import { TextField,SelectField } from "../../Components/Form/Fields";
-import useForm from "../../Functions/Hooks/useForm";
+import { filieres } from "../../../Data/Users";
+import {Form , FormContainer} from "../../../Components/form/GlobalComponents"
+
+import { TextField } from "../../../Components/form/Inputs";
+import {Select} from '../../../Components/form/Select'
+import useForm from "../../../utils/Hooks/useForm";
 import { ToastContainer } from "react-toastify";
 const niveaux =['Technicien Specialise' , 'Technicien','Qualification','Specialisation']
 
@@ -52,7 +53,7 @@ export default function EditFiliere(){
         maxWidth="md:max-w-3xl"
       >
         <FormContainer title="Filiere Information" icon={PencilRuler}>
-          <SelectField 
+          <Select 
             label={'Niveau'}
             name={'niveau'}
             value={values.niveau}

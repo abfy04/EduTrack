@@ -1,17 +1,10 @@
-
-import { UploadCloud, } from "lucide-react"
-
+import { File, Upload, } from "lucide-react"
 import { ToastContainer } from "react-toastify"
-
-import ErrorMsg from "../LittleComponents/FormComponents/ErrorMsg"
-
-
-import {successNotify } from "../Functions/Toast"
-import Container from "../LittleComponents/FormComponents/Container"
-import FieldContainer from "../LittleComponents/FormComponents/FieldContainer"
-import Form from "../LittleComponents/FormComponents/Form"
-import useForm from "../../../Functions/Hooks/useForm"
-import { CustomSelect } from "../LittleComponents/FormComponents/FormComponents"
+import {successNotify } from "../../../../Components/Common/Toast"
+import {Form , FormContainer} from "../../../../Components/form/GlobalComponents"
+import useForm from "../../../../utils/Hooks/useForm"
+import { CustomSelect } from "../../../../Components/form/CustomSelect";
+import { TextField } from "../../../../Components/form/Inputs";
 
 export default function ImportStudents({ groups }) {
   const initialValues = {
@@ -19,7 +12,7 @@ export default function ImportStudents({ groups }) {
     group : ''
   }
 
-  const {values,errors,handleChange,handleSubmit,isFormInvalid}= useForm(initialValues)
+  const {values,errors,handleChange,handleSubmit,isFormValid}= useForm(initialValues,{},'add')
 
   const onSubmit = () => {
     successNotify("students imported  seccussfully" );
@@ -28,75 +21,47 @@ export default function ImportStudents({ groups }) {
   return (
     <>
       <ToastContainer pauseOnHover={false} closeButton={false} />
-      <Form    
-        submitBtnIsDisabled={isFormInvalid}
-        submitBtnTitle={'Import Students'}
-        submitFunction={handleSubmit(onSubmit)}
-      >
- <Container title="Upload File">
-          <FieldContainer label={"Students File"}>
-            <div
-               className={`
-                      block px-4 py-2.5 w-full   appearance-none  bg-transparent rounded-lg 
-                      text-gray-700 dark:text-gray-50 
-                      border 
-                      ${errors.file ? 'border-red-600' : 'border-gray-300 dark:border-gray-600  '}
-                      focus:outline-none focus:ring-0 dark:focus:border-purple-600 focus:border-purple-600
-                      placeholder:text-gray-300 dark:placeholder:text-gray-600
-                  `}
-            >
-              <label
-                htmlFor="dropzone-file"
-                className="flex items-center  gap-2 "
-              >
-                {values.file ? (
-                  <p className="text-sm font-medium text-gray-700 dark:text-gray-50">
-                    {values.file}
-                  </p>
-                ) : (
-                  <>
-                    <UploadCloud size={20} className="text-gray-300 dark:text-gray-600" />
-                    <p className=" text-sm font-medium text-gray-300 dark:text-gray-600">
-                      Uplod XLS, XLSX{" "}
-                    </p>
-                  </>
-                )}
+      <Form
+           submitBtnIsDisabled={!isFormValid}
+           submitBtnTitle={'Import Students'}
+           submitFunction={handleSubmit(onSubmit)}
+           maxWidth="md:max-w-3xl pb-4"
+        >
+          <div className="  w-full space-y-4">
+            {/* personal info */}
+            <FormContainer title="Import Students" icon={Upload}>
+                <TextField 
+                  error={errors.file}
+                  name={'file'}
+                  label={'File'}
+                  value={values.file}
+                  placeHolder={"file"}
+                  icon={File}
 
-                <input
-                  id="dropzone-file"
-                  type="file"
-                  name="file"
-                  className="hidden"
-                  accept=".xls,.xlsx"
-                  onChange={({ target }) =>
-                    handleChange("file", target.files[0].name)
-                  }
+                  handleChange={handleChange}
+                  handleFocus={()=>{}}
+            
+                 
+                  
                 />
-              </label>
-            </div>
+                <CustomSelect 
+                  name={'group'}
+                  label={'Group'}
+                  placeholder={'Select students group'}
+                  handleChange={handleChange}
+                  items={groups}
+                  value={values.group}
+                  position={'top'}
+                />
+                    
 
-          </FieldContainer>
+               
+            </FormContainer>
 
-          <ErrorMsg value={errors.file} />
-          <CustomSelect 
-              name={'group'}
-              label={'Group'}
-              placeholder={'Select group'}
-              handleChange={handleChange}
-              items={groups}
-              value={values.group}
-          />
 
-        </Container>
-      </Form>
-      {/* confirm adding modal */}
-      {/* {isSubmited && (
-        <ConfirmAdding
-          data={formData}
-          setIsSubmited={setIsSubmited}
-          handleClick={handleClick}
-        />
-      )} */}
+          </div>
+        </Form>
+      
     </>
   );
 }

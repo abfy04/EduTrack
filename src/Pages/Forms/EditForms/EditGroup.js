@@ -1,10 +1,11 @@
 import { ArrowLeft, Presentation } from "lucide-react";
-import useForm from "../../Functions/Hooks/useForm";
-import { TextField,RatioField,CustomSelect } from "../../Components/Form/Fields";
+import useForm from "../../../utils/Hooks/useForm";
+import { TextField } from "../../../Components/form/Inputs";
+import { RatioField } from "../../../Components/form/RatioField";
+import { CustomSelect } from "../../../Components/form/CustomSelect";
 import { useParams,useNavigate } from "react-router-dom";
-import Form from "../../Components/Form/Form";
-import { filieres, groups } from "../../Data/Users";
-import FormContainer from "../../Components/Form/FormContainer";
+import { filieres, groups } from "../../../Data/Users";
+import {Form , FormContainer} from "../../../Components/form/GlobalComponents";
 import { ToastContainer } from "react-toastify";
 
   

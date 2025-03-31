@@ -395,3 +395,69 @@ export const absenceDataByGender= {
     ]
     
 }
+
+export const absences = [
+  {
+    idAbsence : 1,
+    fullName : 'Ayoub Fikry',
+    group : 'DEVOWFS201',
+    typeAbsence : 'Late',
+    totalAbsence : 10,
+    totalLate : 6,
+    successiveDates : '2024-01-23 - 2024-02-01'
+  },
+  {
+    idAbsence : 2,
+    fullName : 'Ayoub Fikry',
+    group : 'DEVOWFS201',
+    typeAbsence : 'Late',
+    totalAbsence : 10,
+    totalLate : 6,
+    successiveDates : '2024-01-23 - 2024-02-01'
+  },
+  {
+    idAbsence : 3,
+    fullName : 'Ayoub Fikry',
+    group : 'DEVOWFS201',
+    typeAbsence : 'Late',
+    totalAbsence : 10,
+    totalLate : 6,
+    successiveDates : '2024-01-23 - 2024-02-01'
+  },
+  {
+    idAbsence : 4,
+    fullName : 'Ayoub Fikry',
+    group : 'DEVOWFS201',
+    typeAbsence : 'Late',
+    totalAbsence : 10,
+    totalLate : 6,
+    successiveDates : '2024-01-23 - 2024-02-01'
+  },
+  {
+    idAbsence : 5,
+    fullName : 'Ayoub Fikry',
+    group : 'DEVOWFS201',
+    typeAbsence : 'Late',
+    totalAbsence : 10,
+    totalLate : 6,
+    successiveDates : '2024-01-23 - 2024-02-01'
+  },
+  {
+    idAbsence : 6,
+    fullName : 'Ayoub Fikry',
+    group : 'DEVOWFS201',
+    typeAbsence : 'Late',
+    totalAbsence : 10,
+    totalLate : 6,
+    successiveDates : '2024-01-23 - 2024-02-01'
+  },
+  {
+    idAbsence : 7,
+    fullName : 'Ayoub Fikry',
+    group : 'DEVOWFS201',
+    typeAbsence : 'Late',
+    totalAbsence : 10,
+    totalLate : 6,
+    successiveDates : '2024-01-23 - 2024-02-01'
+  },
+]

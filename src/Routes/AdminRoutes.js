@@ -1,53 +1,53 @@
 import { Route } from "react-router-dom"
 
 //main pages
-import Dashboard from "../Pages/Dashboard"
+import Dashboard from "../Pages/common/Dashboard"
 
 //school resources
-import Filieres from "../Pages/SchoolsResources/Filieres/Filieres";
-import Groups from "../Pages/SchoolsResources/Groups/Groups";
-import Rooms from "../Pages/SchoolsResources/Rooms";
-import Schedule from "../Pages/SchoolsResources/Schedules/Schedule";
-import SchedulesList from "../Pages/SchoolsResources/Schedules/SchedulesList";
-import SchoolRessources from "../Indexes/SchoolRessources";
-import SchoolResources from "../Pages/SchoolsResources/SchoolResources";
+import Filieres from "../Pages/admin/SchoolsResources/Filieres/Filieres";
+import Groups from "../Pages/admin/SchoolsResources/Groups/Groups";
+import Rooms from "../Pages/admin/SchoolsResources/Rooms";
+import Schedule from "../Pages/admin/SchoolsResources/Schedules/Schedule";
+import SchedulesList from "../Pages/admin/SchoolsResources/Schedules/SchedulesList";
+import SchoolRessources from "../Pages/admin/Indexes/SchoolRessources";
+import SchoolResources from "../Pages/admin/SchoolsResources/SchoolResources";
 
 //human resources
-import Teachers from "../Pages/HumanResources/Teachers";
-import AbsenceManagers from "../Pages/HumanResources/AbcenseManagers";
-import HumanRessources from "../Indexes/HumanRessources";
-import HumanResources from "../Pages/HumanResources/HumanResources";
-import TrackProgress from "../Pages/SchoolsResources/Progress/TrackProgress";
+import Teachers from "../Pages/admin/HumanResources/Teachers";
+import AbsenceManagers from "../Pages/admin/HumanResources/AbcenseManagers";
+import HumanRessources from "../Pages/admin/Indexes/HumanRessources";
+import HumanResources from "../Pages/admin/HumanResources/HumanResources";
+import TrackProgress from "../Pages/admin/SchoolsResources/Progress/TrackProgress";
 
 
 
 //Add pages
-import AddUser from "../Forms/AddForms/AddUser";
-import AddFiliere from "../Forms/AddForms/AddFiliere";
-import AddGroup from "../Forms/AddForms/AddGroup";
-import AddRoom from "../Forms/AddForms/AddRoom";
+import AddUser from "../Pages/Forms/AddForms/AddUser";
+import AddFiliere from "../Pages/Forms/AddForms/AddFiliere";
+import AddGroup from "../Pages/Forms/AddForms/AddGroup";
+import AddRoom from "../Pages/Forms/AddForms/AddRoom";
 //edit pages
-import EditUser from "../Forms/EditForms/EditUser";
-import EditFiliere from "../Forms/EditForms/EditFiliere";
-import EditGroup from "../Forms/EditForms/EditGroup";
-import EditRoom from "../Forms/EditForms/EditRoom";
+import EditUser from "../Pages/Forms/EditForms/EditUser";
+import EditFiliere from "../Pages/Forms/EditForms/EditFiliere";
+import EditGroup from "../Pages/Forms/EditForms/EditGroup";
+import EditRoom from "../Pages/Forms/EditForms/EditRoom";
 
 //profiles pages
-import ProfileGroup from "../Pages/SchoolsResources/Groups/ProfileGroup";
-import ProfileFiliere from "../Pages/SchoolsResources/Filieres/ProfileFiliere";
-import Profile from "../Profiles/UserProfile";
+import ProfileGroup from "../Pages/admin/SchoolsResources/Groups/ProfileGroup";
+import ProfileFiliere from "../Pages/admin/SchoolsResources/Filieres/ProfileFiliere";
+import Profile from "../Pages/common/UserProfile";
 
 //history pages
-import AbsencesHistorique from "../Pages/Historique/AbsencesHistorique";
-import SchedulesHistorique from "../Pages/Historique/SchedulesHistorique";
-import TeacherSchedulesArchive from "../Pages/Historique/TeacherSchedulesArchive";
-import Historiques from "../Pages/Historique/Historiques";
-import History from "../Indexes/History";
+import AbsencesHistorique from "../Pages/admin/Historique/AbsencesHistorique";
+import SchedulesHistorique from "../Pages/admin/Historique/SchedulesHistorique";
+import TeacherSchedulesArchive from "../Pages/admin/Historique/TeacherSchedulesArchive";
+import Historiques from "../Pages/admin/Historique/Historiques";
+import History from "../Pages/admin/Indexes/History";
 //configuration pages
-import Configuration from "../Pages/Configuration";
+import Configuration from "../Pages/admin/Indexes/Configuration";
 
-import { ModalProvider } from "../Functions/Context/ModalContext";
-import Progress from "../Pages/SchoolsResources/Progress/Progress";
+import { ModalProvider } from "../utils/Context/ModalContext";
+import Progress from "../Pages/admin/SchoolsResources/Progress/Progress";
 
 
 
@@ -86,7 +86,7 @@ export const adminRoutes = [
         <Route path="addFiliere" element={<AddFiliere/>}/>
         <Route path="addGroup" element={<AddGroup/>}/>
         <Route path="addRoom" element={<AddRoom/>}/>
-        <Route path="schedule/:id" element={<Schedule />}/>
+        <Route path="schedule/:matricule" element={<Schedule />}/>
         <Route path="editFiliere/:id" element={<EditFiliere/>}/>
         <Route path="editGroup/:id" element={<EditGroup/>}/>
         <Route path="editRoom/:idRoom" element={<EditRoom/>}/>

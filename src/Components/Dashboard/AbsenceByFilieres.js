@@ -1,4 +1,4 @@
-import TimeFilter from '../Common/TimeFilter';
+import TimeFilter from '../form/TimeFilter';
 import BarChart from '../Charts/BarChart';
 import { absenceByFiliere } from '../../Data/AbsenceData';
 import { useState } from 'react';

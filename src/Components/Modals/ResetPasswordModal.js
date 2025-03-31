@@ -1,5 +1,5 @@
 import { OctagonAlert } from "lucide-react"
-import { useModalContext } from "../../Functions/Context/ModalContext"
+import { useModalContext } from "../../utils/Context/ModalContext"
 import { useEffect, useRef } from 'react'
 
 export default function ResetPasswordModal({ topic, children }) {

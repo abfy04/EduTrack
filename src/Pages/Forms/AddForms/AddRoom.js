@@ -1,11 +1,10 @@
 import { School, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import { successNotify } from "../../Components/Common/Toast";
-import FormContainer from "../../Components/Form/FormContainer";
-import Form from "../../Components/Form/Form";
-import useForm from "../../Functions/Hooks/useForm";
-import { TextField } from "../../Components/Form/Fields";
+import { successNotify } from "../../../Components/Common/Toast";
+import {Form , FormContainer} from "../../../Components/form/GlobalComponents";
+import useForm from "../../../utils/Hooks/useForm";
+import { TextField } from "../../../Components/form/Inputs";
 
 export default function AddRoom() {
   const nv = useNavigate();

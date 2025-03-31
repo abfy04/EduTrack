@@ -1,23 +1,24 @@
-import { days, sessions } from "../../Data/ScheduleData"
+import { days, scheduleData, sessions } from "../../Data/ScheduleData"
 import ScheduleContainer from "./ScheduleContainer"
 import { FullSession } from "./ScheduleComponents"
 
 export default function DisplaySchedule({ 
-    data, 
+    data = scheduleData, 
     type, // 'teacher', 'group', or 'room'
-    title,
-    subtitle
+      
 }) {
     const renderSessionCell = (day, dayIndex, session, sessionIndex) => {
         const matchingSessions = data.find(s => 
             s.day_of_week === day && session.start === s.start_time
         );
+       
+        
         
         const isLastDay = dayIndex === days.length - 1;
         const isOddSession = sessionIndex === 1 || sessionIndex === 3;
         const isEvenSession = sessionIndex === 0 || sessionIndex === 2;
         const isLastSession = sessionIndex === sessions.length - 1;
-        
+        const roomName = matchingSessions?.room_name || 'A distance';
         return (
             <div 
                 key={`${dayIndex}-${sessionIndex}`} 
@@ -39,8 +40,8 @@ export default function DisplaySchedule({
                         name={type === 'teacher' ? matchingSessions.group_name :
                               type === 'group' ? matchingSessions.teacher_name :
                               matchingSessions.group_name}
-                        room={type === 'teacher' ? matchingSessions.room_name :
-                              type === 'group' ? matchingSessions.room_name :
+                        room={type === 'teacher' ? roomName :
+                              type === 'group' ? roomName :
                               matchingSessions.teacher_name}
                         status={matchingSessions.status}
                     />

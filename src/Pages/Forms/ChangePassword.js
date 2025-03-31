@@ -1,7 +1,6 @@
-import {   PasswordField } from "../Components/Form/Fields"
-import Form from "../Components/Form/Form"
-import useForm from "../Functions/Hooks/useForm"
-import FormContainer from "../Components/Form/FormContainer"
+import {   PasswordField } from "../../Components/form/Inputs"
+import {Form , FormContainer} from "../../Components/form/GlobalComponents"
+import useForm from "../../utils/Hooks/useForm"
 import { Lock } from "lucide-react"
 
 export default function ChangePassword () {

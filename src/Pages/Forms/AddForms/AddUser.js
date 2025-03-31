@@ -1,9 +1,12 @@
 import { BriefcaseBusiness,  KeyRound, Mail, User, UserCog, UserPen, ArrowLeft } from "lucide-react";
 import {  useNavigate, useParams } from "react-router-dom";
-import FormContainer from "../../Components/Form/FormContainer";
-import Form from "../../Components/Form/Form";
-import useForm from "../../Functions/Hooks/useForm";
-import {  RatioField, SelectField, TextField,PasswordField,DateField } from "../../Components/Form/Fields";
+import {Form , FormContainer} from "../../../Components/form/GlobalComponents";
+import useForm from "../../../utils/Hooks/useForm";
+import {  RatioField } from "../../../Components/form/RatioField";
+import { Select } from "../../../Components/form/Select";
+import { TextField } from "../../../Components/form/Inputs";
+import { PasswordField } from "../../../Components/form/Inputs";
+import { DateField } from "../../../Components/form/Fields";
 const add = {
   'teacher' : {
    title : 'Teacher',
@@ -112,7 +115,8 @@ export default function AddUser(){
                        handleChange={handleChange}
                        error={errors.birthday}
                        value={values.birthday}
-                       handleFocus={handleFocus}
+                       placeholder={'Select user\'s birthday'}
+                       
                  
 
                     />
@@ -155,7 +159,7 @@ export default function AddUser(){
                   />
                   {
                     !role &&
-                    <SelectField 
+                    <Select
                       label={'Role'}
                       name={'role'}
                       value={values.role}

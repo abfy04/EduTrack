@@ -1,4 +1,4 @@
-import TimeFilter from '../Common/TimeFilter';
+import TimeFilter from '../form/TimeFilter';
 import DonutCHart from '../Charts/DonutChart';
 import { absenceType,absenceByYear,styleAbsenceType,styleByYear } from '../../Data/AbsenceData';
 import { useState } from 'react';

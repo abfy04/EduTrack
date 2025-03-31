@@ -1,11 +1,10 @@
 import { School,ArrowLeft } from "lucide-react";
 import { ToastContainer } from "react-toastify";
-import { rooms } from "../../Data/Users";
-import FormContainer from '../../Components/Form/FormContainer'
+import { rooms } from "../../../Data/Users";
+import {Form , FormContainer} from "../../../Components/form/GlobalComponents";
 import { useParams,useNavigate } from "react-router-dom";
-import useForm from "../../Functions/Hooks/useForm";
-import Form from "../../Components/Form/Form";
-import { TextField } from "../../Components/Form/Fields";
+import useForm from "../../../utils/Hooks/useForm";
+import { TextField } from "../../../Components/form/Inputs";
 
 export default function EditRoom(){
     const {idRoom} = useParams()

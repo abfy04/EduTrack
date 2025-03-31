@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Edit, Trash2 } from "lucide-react";
-import { useModalContext } from "../../Functions/Context/ModalContext";
-import { TextField } from "../Form/Fields";
+import { useModalContext } from "../../utils/Context/ModalContext";
+import { TextField } from "../form/Inputs";
 
 export default function ProfileComponents({ 
     item, 

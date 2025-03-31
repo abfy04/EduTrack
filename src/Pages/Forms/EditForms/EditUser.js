@@ -1,10 +1,12 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { BriefcaseBusiness, KeyRound, Mail, User, ArrowLeft } from "lucide-react";
-import { users } from "../../Data/Users";
-import Form from "../../Components/Form/Form";
-import FormContainer from "../../Components/Form/FormContainer";
-import { TextField, RatioField, DateField, SelectField } from "../../Components/Form/Fields";
-import useForm from "../../Functions/Hooks/useForm";
+import { users } from "../../../Data/Users";
+import {Form , FormContainer} from "../../../Components/form/GlobalComponents";
+import { TextField } from "../../../Components/form/Inputs";
+import { RatioField } from "../../../Components/form/RatioField";
+import { DateField } from "../../../Components/form/Fields";
+import { Select } from "../../../Components/form/Select";
+import useForm from "../../../utils/Hooks/useForm";
 
 export default function EditUser() {
     const { id } = useParams()
@@ -134,7 +136,7 @@ export default function EditUser() {
                             />
                             {
                                 !values.role &&
-                                <SelectField 
+                                <Select 
                                     label={'Role'}
                                     name={'role'}
                                     value={values.role}

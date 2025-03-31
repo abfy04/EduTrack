@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Calendar, X, ChevronDown } from 'lucide-react'
 
-const CustomDatePicker = ({ value, onChange, className = '', placeholder = 'Select date' }) => {
+const CustomDatePicker = ({ value, onChange, className = '', placeholder = 'Select date' ,disabled = false,name}) => {
     const [isOpen, setIsOpen] = useState(false)
     const [selectedDate, setSelectedDate] = useState(null)
     const [currentMonth, setCurrentMonth] = useState(new Date())
@@ -55,7 +55,7 @@ const CustomDatePicker = ({ value, onChange, className = '', placeholder = 'Sele
     const handleDateSelect = (date) => {
         if (date) {
             setSelectedDate(date)
-            onChange(date.toISOString().split('T')[0])
+            onChange(name,date.toISOString().split('T')[0])
             setIsOpen(false)
         }
     }
@@ -70,19 +70,33 @@ const CustomDatePicker = ({ value, onChange, className = '', placeholder = 'Sele
 
     const formatDisplayValue = () => {
         if (!value) return placeholder
-        return new Date(value).toLocaleDateString()
+        
+        // Create a new date from the value
+        const date = new Date(value)
+        
+        // Get date components
+        const day = date.getDate()
+        const month = date.getMonth() + 1 // Months are 0-indexed
+        const year = date.getFullYear()
+        
+        // Format with leading zeros for day and month when needed
+        const formattedDay = day < 10 ? `0${day}` : day
+        const formattedMonth = month < 10 ? `0${month}` : month
+        
+        // Return in MM/DD/YYYY format (or adjust to your preferred format)
+        return `${formattedMonth}/${formattedDay}/${year}`
     }
 
     const handleClear = (e) => {
         e.stopPropagation()
         setSelectedDate(null)
-        onChange('')
+        onChange(name,'')
     }
 
     const handleToday = (e) => {
         e.stopPropagation()
         setSelectedDate(today)
-        onChange(today.toISOString().split('T')[0])
+        onChange(name,today.toISOString().split('T')[0])
         setIsOpen(false)
     }
 
@@ -95,9 +109,10 @@ const CustomDatePicker = ({ value, onChange, className = '', placeholder = 'Sele
 
     return (
         <div 
-            className="relative cursor-pointer" 
+            className={`relative  ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`} 
             ref={pickerRef}
             onClick={() => setIsOpen(!isOpen)}
+            disabled={disabled} 
         >
             {isOpen && (
                 <div className="absolute top-full left-0 z-50 mb-2 w-72 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg p-4">
@@ -215,7 +230,7 @@ const CustomDatePicker = ({ value, onChange, className = '', placeholder = 'Sele
                                         : 'text-transparent'
                                 }`}
                             >
-                                {day?.getDate()}
+                                {day?.getDate() < 10 ? `0${day?.getDate()}` : day?.getDate()}
                             </div>
                         ))}
                     </div>
@@ -236,12 +251,12 @@ const CustomDatePicker = ({ value, onChange, className = '', placeholder = 'Sele
                         </div>
                 </div>
             )}
-            <div className={`flex items-center gap-2 px-3 py-2 text-sm bg-gray-50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500 ${className}`}>
-                <Calendar className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+            <div className={`flex items-center gap-2 px-3 py-2.5 text-sm bg-gray-50 dark:bg-gray-800/70  border  rounded-lg   ${className} ${isOpen ? 'border-purple-600 ' : 'border-gray-300 dark:border-gray-600'}`}>
+                <Calendar  className="size-5 text-gray-300 dark:text-gray-600" />
                 <input
                     type="text"
                     value={formatDisplayValue()}
-                    className="w-full bg-transparent border-none focus:outline-none dark:text-white cursor-pointer"
+                    className={`w-full bg-transparent border-none focus:outline-none  cursor-pointer  ${formatDisplayValue() === placeholder ? 'text-gray-300 dark:text-gray-600' : 'text-gray-700 dark:text-gray-50'}`}
                     placeholder={placeholder}
                     readOnly
                 />

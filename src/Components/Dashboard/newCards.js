@@ -1,5 +1,5 @@
 import React from 'react';
-import { GraduationCap, UserCog, UserPen, UserX, PencilRuler, Presentation, CalendarFold, School, ClockAlert, BookOpen } from 'lucide-react';
+import { GraduationCap, UserCog, UserPen, UserX, PencilRuler, Presentation, CalendarFold, School, ClockAlert, BookOpen, List } from 'lucide-react';
 
 const typeConfig = {
   'absenceManagers': {
@@ -72,8 +72,35 @@ const typeConfig = {
     iconColor: 'text-green-600 dark:text-green-400',
    
   },
+  'pendingRequests': {
+    icon: <ClockAlert size={20}/>,
+   
+    bgColor: 'bg-yellow-100 dark:bg-yellow-900/30',
+    iconColor: 'text-yellow-600 dark:text-yellow-400',
+   
+  },
+  'listeAbsence': {
+    icon: <List size={20}/>,
+   
+    bgColor: 'bg-cyan-100 dark:bg-cyan-900/30',
+    iconColor: 'text-cyan-600 dark:text-cyan-400',
+   
+  },
+  'yesterdaysAbsence': {
+    icon: <UserX size={20}/>,
+   
+    bgColor: 'bg-red-100 dark:bg-red-900/30',
+    iconColor: 'text-red-600 dark:text-red-400',
+   
+  },
+  'late': {
+    icon: <ClockAlert size={20}/>,
+   
+    bgColor: 'bg-orange-100 dark:bg-orange-900/30',
+    iconColor: 'text-orange-600 dark:text-orange-400',
+   
+  },
 };
-
 export function Cards({ type, total, label }) {
   const config = typeConfig[type];
 

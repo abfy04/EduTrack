@@ -1,12 +1,14 @@
 import { Presentation, School, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { filieres } from "../../Data/Users";
+import { filieres } from "../../../Data/Users";
 import { ToastContainer } from "react-toastify";
-import { CustomSelect, RatioField, TextField } from "../../Components/Form/Fields";
-import { successNotify } from "../../Components/Common/Toast";
-import Form from "../../Components/Form/Form";
-import useForm from "../../Functions/Hooks/useForm";
-import FormContainer from "../../Components/Form/FormContainer";
+import { CustomSelect } from "../../../Components/form/CustomSelect";
+import { RatioField } from "../../../Components/form/RatioField";
+import { TextField } from "../../../Components/form/Inputs";
+import { successNotify } from "../../../Components/Common/Toast";
+import {Form , FormContainer} from "../../../Components/form/GlobalComponents";
+import useForm from "../../../utils/Hooks/useForm";
+
 
 export default function AddGroup() {
   const nv = useNavigate();

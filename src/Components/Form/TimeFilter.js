@@ -1,6 +1,6 @@
 import { ChevronDown } from "lucide-react"
 import { useRef, useState } from "react"
-import useClickOutSide from "../../Functions/Hooks/useClickOutSide"
+import useClickOutSide from "../../utils/Hooks/useClickOutSide"
 
 export default function TimeFilter ({selected,setNewTimeRange}){
     const [isSelectedMenuActive,setIsSelectedMenuActive]=  useState(false)
@@ -38,12 +38,12 @@ export default function TimeFilter ({selected,setNewTimeRange}){
                 </div>
                 { 
                     isSelectedMenuActive && 
-                    <div  className="absolute w-full z-50 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 p-2 top-10 space-y-1 rounded-lg">
+                    <div  className="absolute right-0 mt-2 w-full border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 shadow-lg">
                     {
-                        options.map(option =>
+                        options.map((option,index) =>
                             <span 
                                 onClick={()=>handleClick(option.value)}
-                                className="block px-2 py-1 border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-md text-sm font-medium hover:border-purple-600 dark:hover:border-purple-600 cursor-pointer"
+                                className={`w-full block px-4 py-2 text-left text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${index === 0 ? 'rounded-t-lg' : ''} ${index === options.length - 1 ? 'rounded-b-lg' : ''} ${option.value === selectedOption ? 'bg-purple-500 text-white' : ''}`}
                             >
                                 {option.title}
                             </span>

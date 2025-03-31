@@ -68,7 +68,9 @@ export const students = [
       group: "Dev101",
       totalAbsence: 5,
       yesterdayAbsence: 2,
-      isAbsentToday : 'No'
+        isAbsentToday : 'No',
+        email : 's001@offpt.ma',
+        successiveAbsence : '2025-01-20-2025-01-23'
 
     },
     { 
@@ -80,7 +82,9 @@ export const students = [
       group: "Dev101",
       totalAbsence: 4,
       yesterdayAbsence: 1,
-      isAbsentToday : 'Yes'
+      isAbsentToday : 'Yes',
+      email : 's002@offpt.ma',
+      successiveAbsence : '2025-01-20-2025-01-23'
 
     },
     {
@@ -93,7 +97,9 @@ export const students = [
       group: "GS101",
       totalAbsence: 9,
        yesterdayAbsence: 4,
-    isAbsentToday : 'Yes'
+    isAbsentToday : 'Yes',
+    email : 's003@offpt.ma',
+    successiveAbsence : '2025-01-20-2025-01-23'
 
     },
     {
@@ -106,7 +112,9 @@ export const students = [
       group: "Dev102",
       totalAbsence: 12,
        yesterdayAbsence: 1,
-    isAbsentToday : 'No'
+    isAbsentToday : 'No',
+    email : 's004@offpt.ma',
+    successiveAbsence : '2025-01-20 - 2025-01-23'
 
     },
     {
@@ -119,7 +127,9 @@ export const students = [
       group: "DEVOWFS201",
       totalAbsence: 7,
        yesterdayAbsence: 4,
-    isAbsentToday : 'No'
+    isAbsentToday : 'No',
+    email : 's005@offpt.ma',
+    successiveAbsence : null
  
     },
     {
@@ -132,7 +142,9 @@ export const students = [
       group: "Dev102",
       totalAbsence: 6,
        yesterdayAbsence: 2,
-    isAbsentToday : 'Yes'
+    isAbsentToday : 'Yes',
+    email : 's006@offpt.ma',
+    successiveAbsence : '2025-01-20 - 2025-01-25'
      
     },
     {
@@ -145,7 +157,9 @@ export const students = [
       group: "GS201",
       totalAbsence: 10,
        yesterdayAbsence: 1,
-    isAbsentToday : 'Yes'
+      isAbsentToday : 'Yes',
+    email : 's007@offpt.ma',
+    successiveAbsence : '2025-01-20 - 2025-02-01'
    
     }
   ];
@@ -162,7 +176,7 @@ export const filieres = [
 export const groups = [
     { 
       idGroup:1,
-      libel:'Dev101',
+      libel:'DEV101',
       filiere:'Developement Digital',
       year:'First Year',
       numberStudents: 20, 
@@ -173,7 +187,7 @@ export const groups = [
     },
     { 
       idGroup:2,
-      libel:'Dev102',
+      libel:'DEV102',
       filiere:'Developement Digital',
       year:'First Year',
       numberStudents: 23, 
@@ -195,7 +209,7 @@ export const groups = [
     },
     { 
       idGroup:4,
-      libel:'GS101',
+      libel:'GS201',
       filiere:'Gestion d`entreprise',
       year:'Second Year',
       numberStudents: 20, 
@@ -218,9 +232,7 @@ export const groups = [
 
     
   ]
-
-
-  
+ 
 export  const studentAbsenceRecords = [
     { date: "2025-01-21", status: "Absent", justified : 'Yes'},
     { date: "2025-01-20", status: "Absent", justified : 'No' },
@@ -234,21 +246,6 @@ export  const studentAbsenceRecords = [
     { date: "2024-12-18", status: "Absent", justified : 'Yes'},
   ];
 
-
-
-export  const style ={
-    border:'dark:border-gray-600',
-    errorBorder : 'border-red-600',
-    label :      'bg-gray-50 text-gray-700 dark:bg-gray-900 dark:text-gray-50  ',
-  
-    input : 'text-gray-700 dark:text-gray-50 dark:bg-gray-800 ',
-     disabledInput : ' disabled:bg-purple-100 dark:disabled:bg-purple-300 dark:disabled:text-purple-900',
-    focusInput : 'focus:border-purple-300 dark:focus:border-purple-500 ',
-   
-  }
-
-
-
 export const rooms = [
   {idRoom :1 , roomName : 'Salle 1',isEmpty : 'YES'},
   {idRoom :2 , roomName : 'Salle 2',isEmpty : 'NO'},
@@ -260,11 +257,3 @@ export const rooms = [
   {idRoom :8 , roomName : 'Atelier TFI',isEmpty : 'YES'},
   {idRoom :9 , roomName : 'Info',isEmpty : 'No'},
 ]
-
-
-
-
-
-
-
-  
