@@ -41,9 +41,9 @@ export default function Teachers(){
     }
     
    return (
-    <div className="py-6 px-8">
+    <div className="py-6 px-8 max-w-screen-2xl mx-auto">
       <ToastContainer pauseOnHover={false} closeButton={false} />
-        <h1 className="text-lg font-semibold text-gray-700 dark:text-gray-50 mb-6">
+        <h1 className="text-lg 2xl:text-2xl font-semibold text-gray-700 dark:text-gray-50 mb-6">
           Rooms
         </h1>
         <TableProvider>

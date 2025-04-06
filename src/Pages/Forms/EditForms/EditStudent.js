@@ -16,7 +16,7 @@ export default function EditStudent(){
     const initValues = {
       cef : student.cef,
       fullName : student.fullName,
-      birthday : student.birthday,
+      birthDate : student.birthDate,
       gender : student.gender,
       group : student.group
     }
@@ -27,9 +27,9 @@ export default function EditStudent(){
       },
       fullName : {
         message : 'The name should not contain symbols or numbers',
-        regex : /^[A-Za-z]+$/
+        regex : /^[A-Za-z]+(\s[A-Za-z]+)*$/
       },
-      birthday : {
+      birthDate : {
         message : 'The age should be between 18 and 33',
         validateFunc: (value) => {
           const age = Number(value);

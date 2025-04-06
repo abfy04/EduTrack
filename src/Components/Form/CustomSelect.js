@@ -3,7 +3,7 @@ import { ChevronDown } from "lucide-react"
 import SearchBar from "../Common/SearchBar"
 import { FieldContainer } from "./GlobalComponents"
 export default function Select({ config }) {
-    const { name, onChange, defaultValue, placeholder, items, position = 'bottom' } = config
+    const { name, onChange, defaultValue, placeholder,nameKey, items, position = 'bottom' } = config
     const [isSelectItem, setIsSelectItem] = useState(false)
     const [currentValue, setCurrentValue] = useState(defaultValue)
     const [search, setSearch] = useState('')
@@ -29,7 +29,7 @@ export default function Select({ config }) {
             const rect = selectRef.current.getBoundingClientRect()
             const spaceBelow = window.innerHeight - rect.bottom
             const spaceAbove = rect.top
-            const dropdownHeight = 200 // Approximate height of dropdown
+            const dropdownHeight = 230 // Approximate height of dropdown
 
             if (spaceBelow < dropdownHeight && spaceAbove > spaceBelow) {
                 setDropdownPosition('top')
@@ -42,14 +42,14 @@ export default function Select({ config }) {
     const handleChange = (value) => setSearch(value.toLowerCase())
     
     const select = (obj) => {
-        onChange(name, obj.libel || obj.name || obj.roomName)
-        setCurrentValue(obj.libel || obj.name || obj.roomName)
+        onChange(name, obj[nameKey])
+        setCurrentValue(obj[nameKey])
         setIsSelectItem(false)
         setSearch('')
     }
 
     const data = items.filter(item => 
-        String(item.libel || item.name || item.roomName).toLowerCase().includes(search)
+        String(item[nameKey]).toLowerCase().startsWith(search)
     )
 
     return (
@@ -94,22 +94,23 @@ export default function Select({ config }) {
                         shadow-lg
                         ${dropdownPosition === 'top' ? 'bottom-full mb-2' : 'top-full mt-2'}
                         w-full
+                        max-w-72
                         z-50
                     `}
                 >
                     <SearchBar  
                         searchTerm={search} 
-                        handleChange={handleChange} 
+                        handleSearch={handleChange} 
                     />
-                    <div className="max-h-48 overflow-y-auto space-y-1 mt-2">
+                    <div className="max-h-40 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] space-y-1 mt-2">
                         {data.length > 0 ? (
                             data.map((item) => (
                                 <span
-                                    key={item.libel || item.name || item.roomName}
+                                    key={item[nameKey]}
                                     className={`
                                         block p-2 rounded-md text-sm cursor-pointer
                                         transition-colors duration-200
-                                        ${currentValue === (item.libel || item.name || item.roomName)
+                                        ${currentValue === (item[nameKey])
                                             ? 'bg-purple-50 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-700'
                                             : 'bg-gray-50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600'
                                         }
@@ -117,7 +118,7 @@ export default function Select({ config }) {
                                     `}
                                     onClick={() => select(item)}
                                 >
-                                    {item.libel || item.name || item.roomName}
+                                    {item[nameKey]}
                                 </span>
                             ))
                         ) : (
@@ -132,14 +133,15 @@ export default function Select({ config }) {
     )
 } 
 
-export const CustomSelect = ({items,label , name , handleChange , value , placeholder,position = 'bottom'})=>{
+export const CustomSelect = ({items,label,nameKey , name , handleChange , value , placeholder,position = 'bottom'})=>{
     const config = {
        name : name, 
        items : items,
        onChange : handleChange,
        placeholder : placeholder,
        defaultValue : value ,
-       position : position     
+       position : position  ,
+       nameKey   
     }
    return (
        <FieldContainer label={label}>

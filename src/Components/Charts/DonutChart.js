@@ -42,8 +42,8 @@ export default function DonutCHart({ data, style }) {
         
         {/* Center content */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center text-center">
-          <span className="text-4xl font-bold text-gray-900 dark:text-white">{total}</span>
-          <span className="text-sm mt-1 font-medium text-gray-500 dark:text-gray-400">Total</span>
+          <span className="text-4xl 2xl:text-6xl font-bold text-gray-900 dark:text-white">{total}</span>
+          <span className="text-sm 2xl:text-base mt-1 font-medium text-gray-500 dark:text-gray-400">Total</span>
         </div>
       </div>
 
@@ -52,11 +52,11 @@ export default function DonutCHart({ data, style }) {
         {data.map((d) => (
           <div 
             key={d.type} 
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700"
+            className="flex items-center gap-2 px-3 py-1.5  text-sm 2xl:text-lg rounded-full bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700"
           >
-            <span className={`size-3 rounded-full ${style?.[d.type]?.style}`}></span>
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{d.type}</span>
-            <span className="text-sm text-gray-500 dark:text-gray-400">({d.value})</span>
+            <span className={`size-3 2xl:size-5 rounded-full ${style?.[d.type]?.style}`}></span>
+            <span className=" font-medium text-gray-700 dark:text-gray-300">{d.type}</span>
+            <span className=" text-gray-500 dark:text-gray-400">({d.value})</span>
           </div>
         ))}
       </div>

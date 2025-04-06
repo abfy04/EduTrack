@@ -16,14 +16,14 @@ export default function EditRoom(){
     const validation = {
       roomName : {
         message :  'The room name should not contain symbols ',
-        regex: /^[A-Za-z]+\d+$/ ,
+        regex: /^[A-Za-z0-9]+(?:\s[A-Za-z0-9]+)*$/,
       }
     }
     const onSubmit = () => {
-      console.log('room bien Editer');
-      
+      localStorage.setItem('toastMessage','Room bien Editer')
+      nv(-1)
     }
-    const {values,errors,handleChange,handleFocus,handleSubmit,isFormValid} = useForm(initialValues,validation,'edit')
+    const {values,errors,handleChange,handleFocus,handleSubmit,isSubmitDisabled} = useForm(initialValues,validation,'edit')
  
     return (
       <>
@@ -45,7 +45,7 @@ export default function EditRoom(){
         <ToastContainer pauseOnHover={false} closeButton={false} />
 
         <Form 
-        submitBtnIsDisabled={!isFormValid}
+        submitBtnIsDisabled={isSubmitDisabled()}
         submitBtnTitle={'Edit Room'}
         submitFunction={handleSubmit(onSubmit)}
       >

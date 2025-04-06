@@ -1,6 +1,4 @@
-
-
-import { BriefcaseBusiness,  KeyRound, Mail, User, ArrowLeft, GraduationCap } from "lucide-react";
+import { BriefcaseBusiness,  KeyRound, Mail, User, Wand  } from "lucide-react";
 import {  useNavigate, } from "react-router-dom";
 import {Form , FormContainer} from "../../../../Components/form/GlobalComponents";
 import useForm from "../../../../utils/Hooks/useForm";
@@ -8,10 +6,13 @@ import {  RatioField } from "../../../../Components/form/RatioField";
 import { CustomSelect } from "../../../../Components/form/CustomSelect";
 import { DateField } from "../../../../Components/form/Fields";
 import {  TextField,PasswordField } from "../../../../Components/form/Inputs";
-
+import ConfirmAddModal from "../../../../Components/Modals/ConfirmAdding";
+import { useState } from "react";
+import { calculateAge } from "../../../../utils/calcAge";
+import { generateStrongPassword } from "../../../../utils/generatePassword";
 
 export default function AddOneStudent({groups}){
-  
+  const [isConfirmAddingOpen,setIsConfirmAddingOpen] = useState(false)
   const nv= useNavigate()
   const initialValues = {
     fullName : '',
@@ -26,9 +27,9 @@ export default function AddOneStudent({groups}){
   const validation = {
     fullName : {
       message : 'The name should not contain symbols or numbers',
-      regex : /^[A-Za-z]+$/
+      regex : /^[A-Za-z]+(\s[A-Za-z]+)*$/
     },
-    birthday : {
+    birthDate : {
       message : 'The age should be between 18 and 65',
       validateFunc: (birthDate) => {
         const age = calculateAge(birthDate);
@@ -40,7 +41,7 @@ export default function AddOneStudent({groups}){
       regex : /^\d+$/
     },
     email : {
-      regex : /^[a-zA-Z0-9._%+-]+@ofppt\.[a-zA-Z]{2,}$/ ,
+      regex : /^[a-zA-Z0-9][a-zA-Z0-9._%+-]*@ofppt-edu\.ma$/ ,
       message : 'invalid email , enter profetionnal email'
     },
     password : {
@@ -53,10 +54,19 @@ export default function AddOneStudent({groups}){
     }
   }
  
-  const {values,errors,handleChange,handleFocus,handleSubmit,isFormValid}= useForm(initialValues,validation,'add')
+  const {values,errors,handleChange,handleFocus,handleSubmit,resetForm,isSubmitDisabled}= useForm(initialValues,validation,'add')
   const onSubmit = ()=>{
+    setIsConfirmAddingOpen(true)
+  }
+
+  const handleConfirm = ()=>{
     localStorage.setItem('toastMessage', 'student added seccussfully');
+    resetForm()
     nv(-1) 
+  }
+  const handleClose = ()=>{
+    resetForm()
+    setIsConfirmAddingOpen(false)
   }
   
     return (
@@ -64,7 +74,7 @@ export default function AddOneStudent({groups}){
         
     
         <Form
-           submitBtnIsDisabled={!isFormValid}
+           submitBtnIsDisabled={isSubmitDisabled()}
            submitBtnTitle={'Add User'}
            submitFunction={handleSubmit(onSubmit)}
            maxWidth="md:max-w-3xl pb-4"
@@ -89,11 +99,11 @@ export default function AddOneStudent({groups}){
                 
                     
                     <DateField 
-                       name={'birthday'}
-                       label={'BirthDay'}
+                       name={'birthDate'}
+                       label={'Birth Date'}
                        handleChange={handleChange}
-                       error={errors.birthday}
-                       value={values.birthday}
+                       error={errors.birthDate}
+                       value={values.birthDate}
                        handleFocus={handleFocus}
                  
 
@@ -149,7 +159,8 @@ export default function AddOneStudent({groups}){
               />
                 
                
-                <div className=' flex  gap-2 w-full'>
+                <div className=' flex  gap-2 w-full items-center'>
+                 
                 <PasswordField 
                     error={errors.password}
                     name={'password'}
@@ -161,36 +172,31 @@ export default function AddOneStudent({groups}){
                  
                  
                 />
-                <PasswordField 
-                    error={errors.confirmPassword}
-                    name={'confirmPassword'}
-                    label={'Confirm Password '}
-                    value={values.confirmPassword}
-                    handleChange={handleChange}
-                    handleFocus={handleFocus}
-                    placeHolder={"Confirm student's password"}  
-                />
+                
+                  <button 
+                      type="button" 
+                      className=" px-4 py-2.5 rounded-md flex items-center flex-1 w-full min-w-56 h-10 gap-2 text-sm font-medium translate-y-5 dark:bg-purple-950/50 dark:hover:bg-purple-900 dark:text-gray-50 dark:border-purple-600 border"
+                      onClick={()=>handleChange('password',generateStrongPassword())}
+                  >
+                    <Wand size={18} className="dark:text-purple-500 " />
+                    Generate Password
+
+                  </button>
 
                 </div>
   
             </FormContainer>
           </div>
         </Form>
+        <ConfirmAddModal 
+        isOpen={isConfirmAddingOpen} 
+        onConfirm={handleConfirm} 
+        onClose={handleClose} 
+        itemName={'student'}
+        confirmText="Confirm student adding"
+        cancelText="Cancel adding" 
+      />
       </>
     );
 }
 
-function calculateAge(birthDate) {
-  const birth = new Date(birthDate);
-  const today = new Date();
-
-  let age = today.getFullYear() - birth.getFullYear();
-
-  // Adjust if the birthday hasn't occurred yet this year
-  const monthDiff = today.getMonth() - birth.getMonth();
-  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
-    age--;
-  }
-
-  return age;
-}

@@ -1,9 +1,9 @@
-import { days, scheduleData, sessions } from "../../Data/ScheduleData"
+import { days, sessions } from "../../Data/ScheduleData"
 import ScheduleContainer from "./ScheduleContainer"
 import { FullSession } from "./ScheduleComponents"
 
 export default function DisplaySchedule({ 
-    data = scheduleData, 
+    data,
     type, // 'teacher', 'group', or 'room'
       
 }) {

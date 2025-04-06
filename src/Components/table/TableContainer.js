@@ -38,7 +38,6 @@ export default function TableContainer ({
 
         const filteredData = filterFunction(data,tableConfig.searchBy,searchQuery,activeFilters)
        const sortedData = sortFunction(filteredData,sort)
-      console.log('sortedData',sortedData);
       
         // Pagination calculations
         const totalItems = sortedData.length;

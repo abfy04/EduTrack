@@ -4,7 +4,7 @@ export const users = [
         matricule : 'T001',
         fullName: "John Doe",
       gender: "Male",
-      age: 40,
+      birthDate: '1990-01-01',
       email : 't001@offpt.ma',
       role:'teacher'
      
@@ -14,7 +14,7 @@ export const users = [
       matricule : 'T005',
       fullName: "Daaif ",
     gender: "Male",
-    age: 40,
+    birthDate: '1990-01-01',
  email : 't005@offpt.ma',
     role:'teacher'
    
@@ -24,7 +24,7 @@ export const users = [
       matricule : 'T002',
       fullName: "Sarah Smith",
       gender: "Female",
-      age: 35,
+      birthDate: '1990-01-01',
     email : 't002@offpt.ma',
        role:'teacher'
      
@@ -34,7 +34,7 @@ export const users = [
         matricule : 'T003',
       fullName: "Michael Brown",
       gender: "Male",
-      age: 50,
+      birthDate: '1990-01-01',
       email : 't003@offpt.ma',
      
        role:'teacher'
@@ -45,17 +45,20 @@ export const users = [
       matricule : 'T004',
       fullName: "Emily Davis",
       gender: "Female",
-      age: 29,
+      birthDate: '1990-01-01',
       email : 't004@offpt.ma',
      
        role:'teacher'
   
     },
-    {idUser:5,matricule:'A001',fullName:'Ahmed Mohammed',gender: 'Male',role: 'Absence Manager',age:50,email : 'a001@offpt.ma',},
-    {idUser:6,matricule:'A002',fullName:'Jilali Brahim',gender: 'Male',role: 'Absence Manager',age:43,email : 'a002@offpt.ma',},
-    {idUser:7,matricule:'A003',fullName:'Hasnaoui Ghita',gender: 'Female',role: 'Absence Manager',age:23,email : 'a003@offpt.ma',},
-    {idUser:8,matricule:'A005',fullName:'Basir Hassan',gender: 'Male',role: 'Absence Manager',age:22,email : 'a004@offpt.ma',},
+    {idUser:5,matricule:'A001',fullName:'Ahmed Mohammed',gender: 'Male',role: 'Absence Manager',birthDate: '1990-01-01',email : 'a001@offpt.ma',},
+    {idUser:6,matricule:'A002',fullName:'Jilali Brahim',gender: 'Male',role: 'Absence Manager',birthDate: '1990-01-01',email : 'a002@offpt.ma',},
+    {idUser:7,matricule:'A003',fullName:'Hasnaoui Ghita',gender: 'Female',role: 'Absence Manager',birthDate: '1990-01-01',email : 'a003@offpt.ma',},
+    {idUser:8,matricule:'A005',fullName:'Basir Hassan',gender: 'Male',role: 'Absence Manager',birthDate: '1990-01-01',email : 'a004@offpt.ma',},
 ]
+
+export const teachers = users.filter(user => user.role === 'teacher')
+export const absenceManagers = users.filter(user => user.role === 'Absence Manager')
 
 
 export const students = [

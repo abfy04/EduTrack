@@ -1,8 +1,8 @@
 import { OctagonAlert, Calendar } from "lucide-react"
-import { Switch } from "../../../../Components/form/Switch"
-import { DateField } from "../../../../Components/form/Fields"
+import { Switch } from "../../../../../Components/form/Switch"
+import { DateField } from "../../../../../Components/form/Fields"
 import { useRef, useState } from "react";
-import useClickOutSide from "../../../../utils/Hooks/useClickOutSide";
+import useClickOutSide from "../../../../../utils/Hooks/useClickOutSide";
 
 export default function DeleteSessionModal({deleteSession, handleCancel,session}) {
     const {is_temporary, start_date, end_date,status} = session;

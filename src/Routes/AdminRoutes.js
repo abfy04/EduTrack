@@ -8,13 +8,13 @@ import Filieres from "../Pages/admin/SchoolsResources/Filieres/Filieres";
 import Groups from "../Pages/admin/SchoolsResources/Groups/Groups";
 import Rooms from "../Pages/admin/SchoolsResources/Rooms";
 import Schedule from "../Pages/admin/SchoolsResources/Schedules/Schedule";
-import SchedulesList from "../Pages/admin/SchoolsResources/Schedules/SchedulesList";
+import SchedulesList from "../Pages/admin/SchoolsResources/Schedules/schedulePages/SchedulesList";
 import SchoolRessources from "../Pages/admin/Indexes/SchoolRessources";
 import SchoolResources from "../Pages/admin/SchoolsResources/SchoolResources";
 
 //human resources
 import Teachers from "../Pages/admin/HumanResources/Teachers";
-import AbsenceManagers from "../Pages/admin/HumanResources/AbcenseManagers";
+import AbsenceManagers from "../Pages/admin/HumanResources/AbsenceManagers";
 import HumanRessources from "../Pages/admin/Indexes/HumanRessources";
 import HumanResources from "../Pages/admin/HumanResources/HumanResources";
 import TrackProgress from "../Pages/admin/SchoolsResources/Progress/TrackProgress";
@@ -48,6 +48,7 @@ import Configuration from "../Pages/admin/Indexes/Configuration";
 
 import { ModalProvider } from "../utils/Context/ModalContext";
 import Progress from "../Pages/admin/SchoolsResources/Progress/Progress";
+import Home from "../Pages/admin/SchoolsResources/Schedules/schedulePages/Home";
 
 
 
@@ -82,16 +83,23 @@ export const adminRoutes = [
         <Route path="filieres" element={<Filieres/>}/>
         <Route path="groups" element={<Groups/>}/>
         <Route path="rooms" element={<Rooms/>}/>
-        <Route path="schedules" element={<SchedulesList/>}/>
+
+        <Route path="schedules" element={<Home/>}/>
+        <Route path="schedulesList/:entityType" element={<SchedulesList/>}/>
+      
+        <Route path="schedule/:entity/:id" element={<Schedule />}/>
+
         <Route path="addFiliere" element={<AddFiliere/>}/>
         <Route path="addGroup" element={<AddGroup/>}/>
         <Route path="addRoom" element={<AddRoom/>}/>
-        <Route path="schedule/:matricule" element={<Schedule />}/>
+       
         <Route path="editFiliere/:id" element={<EditFiliere/>}/>
         <Route path="editGroup/:id" element={<EditGroup/>}/>
         <Route path="editRoom/:idRoom" element={<EditRoom/>}/>
+
         <Route path="groupProfile/:id" element={<ModalProvider><ProfileGroup/></ModalProvider>}/>
         <Route path="filiereProfile/:id" element={<ModalProvider><ProfileFiliere/></ModalProvider>}/>
+
         <Route path="progress" element={<Progress />}/>
         <Route path="progress/:filter/:id" element={<TrackProgress />}/>
     </Route>

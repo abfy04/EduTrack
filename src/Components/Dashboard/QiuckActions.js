@@ -1,36 +1,38 @@
 import { Link } from "react-router-dom"
 import {  PencilRuler, Presentation, School, User, Wand } from "lucide-react"
-import { useState } from "react"
+import { useRef, useState } from "react"
+import useClickOutSide from "../../utils/Hooks/useClickOutSide"
 
 
 
 export default function QuickActions(){
   
   const iconSize  = 16
+  const actionRef = useRef(null)
   const quickLinks = [
     {
-      link :'/addUser',
+      link :'/humanResources/addUser/',
       title : 'Ajouter un utilisateur',
-      icon : <User size={iconSize}/>,
+      icon : <User size={iconSize} className="dark:text-purple-500 text-purple-700"/>,
     
     },
     {
-      link :'/addFiliere',
+      link :'/schoolResources/addFiliere',
       title : 'Ajouter une filiere',
-      icon : <PencilRuler size={iconSize}/>,
+      icon : <PencilRuler size={iconSize} className="dark:text-purple-500 text-purple-700"/>,
     
     },
     {
-      link :'/addGroup',
+      link :'/schoolResources/addGroup',
       title : 'Ajouter un group',
-      icon : <Presentation size={iconSize}/>,
+      icon : <Presentation size={iconSize} className="dark:text-purple-500 text-purple-700"/>,
  
     },
     
     {
-      link :'/addRoom',
+      link :'/schoolResources/addRoom',
       title : 'Ajouter une Salle',
-      icon : <School size={iconSize} />,
+      icon : <School size={iconSize} className="dark:text-purple-500 text-purple-700" />,
      
     }
   ]
@@ -40,6 +42,8 @@ export default function QuickActions(){
       setActiveMenu(!activeMenu)
     }
 
+    useClickOutSide(()=>setActiveMenu(false) ,actionRef)
+
 
     
     
@@ -48,27 +52,27 @@ export default function QuickActions(){
     return (
         <>
         <div className='flex gap-2 items-center justify-end'>
-          <div className="relative max-w-60 min-w-44 w-full">
+          <div className="relative max-w-60 min-w-44 w-full" ref={actionRef}>
               <button 
-                className={`bg-gray-700 px-3 py-2 text-gray-50 group outline-none  hover:bg-gray-600 text-sm flex items-center justify-between gap-2  font-medium w-full ${activeMenu ? 'rounded-t-lg':'rounded-lg'} dark:bg-gray-50 dark:hover:bg-gray-200 dark:text-gray-700`} 
+                className={`bg-purple-300/50 px-3 py-2 text-purple-700 group outline-none  hover:bg-purple-200 text-sm flex items-center justify-between gap-2  font-medium w-full ${activeMenu ? 'rounded-t-lg':'rounded-lg'} dark:bg-purple-950/50 dark:hover:bg-purple-900 dark:text-gray-50`} 
                 onClick={handleClick}
                 
               >
               <div className="flex items-center gap-2">
-                <Wand size={18} />
+                <Wand size={18} className="dark:text-purple-500 " />
                 <span > Actions rapides </span>
               </div>
               
               
               </button>
               {activeMenu && (
-              <div className="absolute  z-50 min-w-full  rounded-b-lg dark:bg-gray-100 bg-gray-600 shadow-lg ring-1 ring-black ring-opacity-5">
-                <div className="p-2 dark:text-gray-700 text-gray-50">
+              <div className="absolute  z-50 min-w-full  rounded-b-lg dark:bg-purple-950 bg-purple-100 shadow-lg ring-1 ring-black ring-opacity-5">
+                <div className="p-2 dark:text-purple-50 text-purple-700">
                     {
                       quickLinks.map(quickLink=>
                         <Link 
                           to={quickLink.link} 
-                          className="dark:hover:bg-gray-200 hover:bg-gray-700 rounded-sm flex gap-4 items-center justify-between text-sm p-2 "
+                          className="dark:hover:bg-purple-900 hover:bg-purple-200 rounded-lg flex gap-4 items-center justify-between text-sm p-2 "
                         >
                            <span className="flex items-center gap-2">
                            {quickLink.icon}

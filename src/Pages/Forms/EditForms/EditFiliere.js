@@ -4,10 +4,11 @@ import { filieres } from "../../../Data/Users";
 import {Form , FormContainer} from "../../../Components/form/GlobalComponents"
 
 import { TextField } from "../../../Components/form/Inputs";
-import {Select} from '../../../Components/form/Select'
+import { SelectField} from '../../../Components/form/Select'
 import useForm from "../../../utils/Hooks/useForm";
 import { ToastContainer } from "react-toastify";
 const niveaux =['Technicien Specialise' , 'Technicien','Qualification','Specialisation']
+const niveauxOptions = niveaux.map(niveau => ({value : niveau,option : niveau}))
 
 export default function EditFiliere(){
     const {id} = useParams()
@@ -23,9 +24,10 @@ export default function EditFiliere(){
         regex : /^[A-Za-z]+$/
       }
     }
-    const {values,errors,handleChange,handleFocus,handleSubmit,isFormValid} = useForm(initValues,validations,'edit')
+    const {values,errors,handleChange,handleFocus,handleSubmit,isSubmitDisabled} = useForm(initValues,validations,'edit')
     const onSubmit = () => {
-      console.log('filiere bien Editer');
+        localStorage.setItem('toastMessage','Filiere bien Editer')
+        nv(-1)
     }
    
     return (
@@ -47,20 +49,21 @@ export default function EditFiliere(){
       </div>
       <ToastContainer pauseOnHover={false} closeButton={false} />
       <Form 
-        submitBtnIsDisabled={!isFormValid} 
+        submitBtnIsDisabled={isSubmitDisabled()} 
         submitFunction={handleSubmit(onSubmit)} 
         submitBtnTitle={'Edit Filiere'}
         maxWidth="md:max-w-3xl"
       >
         <FormContainer title="Filiere Information" icon={PencilRuler}>
-          <Select 
+          <SelectField 
             label={'Niveau'}
             name={'niveau'}
             value={values.niveau}
             placeholder={'Select niveau'}
             handleChange={handleChange}
-            items={niveaux}
+            items={niveauxOptions}
           />
+
           <TextField 
             error={errors.libel}
             name={'libel'}

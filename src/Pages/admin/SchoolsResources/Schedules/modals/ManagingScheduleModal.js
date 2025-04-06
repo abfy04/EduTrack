@@ -1,11 +1,11 @@
-import { groups, rooms } from "../../../../Data/Users"
-import useClickOutSide from "../../../../utils/Hooks/useClickOutSide";
-import { Switch } from "../../../../Components/form/Switch"
-import { DateField } from "../../../../Components/form/Fields"
-import { CustomSelect } from "../../../../Components/form/CustomSelect"
-import { RatioField } from "../../../../Components/form/RatioField"
+import { groups, rooms,teachers } from "../../../../../Data/Users"
+import useClickOutSide from "../../../../../utils/Hooks/useClickOutSide";
+import { Switch } from "../../../../../Components/form/Switch"
+import { DateField } from "../../../../../Components/form/Fields"
+import { CustomSelect } from "../../../../../Components/form/CustomSelect"
+import { RatioField } from "../../../../../Components/form/RatioField"
 
-import { Expand, Minimize2, X, Calendar, Users, Building2 } from "lucide-react"
+import { Expand, Minimize2, X, Calendar, Users, Building2, Presentation, UserPen } from "lucide-react"
 import { useRef, useState } from "react";
 
 export default function ManagingScheduleModal({
@@ -14,15 +14,32 @@ export default function ManagingScheduleModal({
     session,
     onCancel,
     handleBackToOriginal,
-    teacherName
+    entityName,
+    entity
 }) {
     const popoverRef = useRef(null);
     useClickOutSide(onCancel, popoverRef)
     const [isZoomed, setIsZoomed] = useState(false)
     const [sessionState, setSessionState] = useState(session)
-    const isTemporaryValid = sessionState?.is_temporary ? (sessionState?.start_date && sessionState?.end_date) : true;
-    const isSubmitButtonDisabled = sessionState?.type === 'A distance' ? !(sessionState?.group_name && isTemporaryValid) : !(sessionState?.group_name && sessionState?.room_name && isTemporaryValid)
+    const currentDate = new Date ()
+
+  
+
     
+    const isSubmitButtonDisabled = () => {
+        const isTemporaryValid = sessionState?.is_temporary ? (sessionState?.start_date && sessionState?.end_date) : true;
+        switch (entity) {
+            case 'teacher':
+                return ! ( (sessionState?.type === 'Presentiel' ? sessionState?.room_name : true) && isTemporaryValid && sessionState?.group_name )
+            case 'group':
+                return ! ( (sessionState?.type === 'Presentiel' && sessionState?.room_name) && isTemporaryValid && sessionState?.teacher_name )
+            case 'room':
+                return  !(sessionState?.teacher_name && sessionState?.group_name && isTemporaryValid)
+        
+            default:
+                return true;
+        }
+    }
     
     const handleChange = (name, value) => {
         
@@ -53,7 +70,7 @@ export default function ManagingScheduleModal({
                             </div>
                             <div>
                                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                                    Mr. {teacherName}
+                                    Mr. {entityName}
                                 </h3>
                                 <p className="text-sm text-gray-500 dark:text-gray-400">
                                     {session?.day_of_week} • {session?.start_time} - {session?.end_time}
@@ -118,36 +135,61 @@ export default function ManagingScheduleModal({
                                         name='is_temporary'
                                     />
                                 </div>
-                                <div className="flex items-center justify-between w-full">
-                                    <RatioField
-                                        name="type"
-                                        label="Type of Session"
-                                        value={sessionState?.type}
-                                        handleChange={handleChange}
-                                        items={['Presentiel', 'A distance']}
-                                    />
-                    
-                                </div>
+                                {
+                                    entity !== 'room' &&
+                                    <div className="flex items-center justify-between w-full">
+                                        <RatioField
+                                            name="type"
+                                            label="Type of Session"
+                                            value={sessionState?.type}
+                                            handleChange={handleChange}
+                                            items={['Presentiel', 'A distance']}
+                                        />
+                        
+                                    </div>
+                                }
 
                                 <div className={`grid gap-4 ${sessionState?.type === 'A distance' ? 'grid-cols-1' : 'grid-col-1 md:grid-cols-2'}`}>
-                                    <CustomSelect
-                                        items={groups}
-                                        label="Available Groups"
-                                        name="group_name"
-                                        value={sessionState?.group_name}
-                                        placeholder="Select group"
-                                        handleChange={handleChange}
-                                        icon={<Users className="w-4 h-4 text-gray-400" />}
-                                    />
                                     {
-                                        sessionState?.type === 'Presentiel' && (
+                                        entity !== 'group' && (
+                                            <CustomSelect
+                                                items={groups}
+                                                label="Available Groups"
+                                                name="group_name"
+                                                value={sessionState?.group_name}
+                                                nameKey={'libel'}
+                                                placeholder="Select group"
+                                                handleChange={handleChange}
+                                                icon={<Presentation className="w-4 h-4 text-gray-400" />}
+                                            />
+                                        )
+                                    }
+                                    {
+                                        entity !== 'teacher' && (
+                                            <CustomSelect
+                                                items={teachers}
+                                                label="Available Teachers"
+                                                name="teacher_name"
+                                                nameKey={'fullName'}
+                                                value={sessionState?.teacher_name}
+                                                placeholder="Select Teacher"
+                                                position="top"
+                                                handleChange={handleChange}
+                                                icon={<UserPen className="w-4 h-4 text-gray-400" />}
+                                            />
+                                        )
+                                    }
+                                    {
+                                        sessionState?.type === 'Presentiel' && entity !== 'room' && (
                                             <CustomSelect
                                                 items={rooms}
                                                 label="Available Rooms"
                                                 name="room_name"
+                                                nameKey={'roomName'}
                                                 value={sessionState?.room_name}
                                                 placeholder="Select room"
                                                 handleChange={handleChange}
+                                                position="top"
                                                 icon={<Building2 className="w-4 h-4 text-gray-400" />}
                                             />
                                         )
@@ -162,6 +204,9 @@ export default function ManagingScheduleModal({
                                         value={sessionState?.start_date || ''}
                                         handleChange={handleChange}
                                         handleFocus={()=>{}}
+                                        min = {currentDate}
+                                        max = {sessionState?.end_date || ''}
+                                        yearsAccepted={[currentDate.getFullYear()]}
 
 
                                     />
@@ -171,6 +216,8 @@ export default function ManagingScheduleModal({
                                         value={sessionState?.end_date || ''}
                                         handleChange={handleChange}
                                         handleFocus={()=>{}}
+                                        min = {sessionState?.start_date || currentDate}
+                                        yearsAccepted={[currentDate.getFullYear()]}
                                         
 
                                     />
@@ -198,7 +245,7 @@ export default function ManagingScheduleModal({
                                     }
                                             <button
                                                 type="submit"
-                                        disabled={isSubmitButtonDisabled}
+                                        disabled={isSubmitButtonDisabled()}
                                         className="px-4 py-2 text-sm font-medium text-white bg-purple-600 
                                             rounded-lg hover:bg-purple-700 focus:ring-2 focus:outline-none 
                                             focus:ring-purple-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 

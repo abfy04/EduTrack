@@ -1,5 +1,7 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
-
+import { successNotify } from "../../../Components/Common/Toast";
+import { useEffect } from "react";
+import { ToastContainer } from "react-toastify";
 
 const links = [
     {
@@ -26,9 +28,21 @@ const addUserLink = {
 export default function HumanRessources(){
    const location = useLocation();
    const path = location.pathname;
+   useEffect(()=>{
+    const message = localStorage.getItem('toastMessage')
+    if(message){
+      successNotify(message)
+      setTimeout(() => {
+        localStorage.removeItem('toastMessage')
+      }, 3000);
+      
+    }
+  })
    const Links = () => {
     return (
             <div className="flex items-center gap-3">
+                <ToastContainer pauseOnHover={false} closeButton={false} />
+
                 {links.map((link) => (
                     <Link 
                         to={link.link}

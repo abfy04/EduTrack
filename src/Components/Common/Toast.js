@@ -29,9 +29,9 @@ function CustomToast ({message, closeToast, toastProps}) {
 export const successNotify  = (msg)=> toast.success(<CustomToast message={msg}/>,
                 { 
                 position: 'bottom-right',
-                className: 'p-0 w-76 bg-green-600 dark:bg-green-100 text-green-100 dark:text-green-600',
+                className: 'p-0 w-76 bg-green-200/50 dark:bg-green-700/50 backdrop-blur-sm text-green-700 dark:text-green-50',
                 icon : false,
-                progressClassName: "bg-green-100 dark:bg-green-600",
+                progressClassName: "bg-green-700 dark:bg-green-50",
                 autoClose: 3000
                 
                 }
@@ -40,9 +40,9 @@ export const successNotify  = (msg)=> toast.success(<CustomToast message={msg}/>
 export const dangerNotify  = (msg)=> toast.error(<CustomToast message={msg}/>,
   { 
   position: 'bottom-right',
-  className: 'p-0 w-76 bg-red-600 dark:bg-red-100 text-red-100 dark:text-red-600',
+  className: 'p-0 w-76 bg-red-200/50 dark:bg-red-700/50 backdrop-blur-sm text-red-700 dark:text-red-50',
   icon : false,
-  progressClassName: "bg-red-100 dark:bg-red-600",
+  progressClassName: "bg-red-700 dark:bg-red-50",
   
   }
 )

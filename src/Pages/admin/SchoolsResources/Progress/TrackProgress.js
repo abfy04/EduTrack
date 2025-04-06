@@ -57,17 +57,12 @@ export default function TrackProgress() {
                 <div className="flex items-center justify-between">
                     <TabContainer>
                         {tabs.map((tab, index) => (
-                            <Tab key={index} section={tab} activeSection={activeSection} setActiveSection={setActiveSection} />
+                            <Tab key={index} section={tab} activeSection={activeSection} setSection={setActiveSection} />
                         ))}
                        
                       
                     </TabContainer>
-                    <div className="flex items-center gap-1 border-b border-gray-300 dark:border-gray-600 ">
-                        <Tab section={'All'} />
-                        <Tab section={'Not Started'} />
-                        <Tab section={'Incomplited'} />
-                        <Tab section={'Complited'} />
-                    </div>
+                    
                     <div className="flex items-center gap-3">
                         <SearchBar
                             searchTerm={search}

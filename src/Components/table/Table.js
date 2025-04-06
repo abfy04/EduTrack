@@ -10,7 +10,7 @@ export default function Table ({tableConfig,data,filteredData}){
     const gridTemplateColumns = [
         ...(selectable ? ['48px'] : []),
         ...columns.map(col => col.width || '1fr'),
-        ...(actions ? ['48px'] : [])
+        ...(actions ? ['28px'] : [])
       ].join(' ');
     
 

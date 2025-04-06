@@ -1,49 +1,56 @@
-import { OctagonAlert } from "lucide-react"
-export default function ConfirmAdding ( {data,handleClick,setIsSubmited}){
-    return (
-        <div id="popup-modal" tabindex="-1" className="mx-auto overflow-y-auto overflow-x-hidden bg-slate-50 dark:bg-gray-900 dark:bg-opacity-60  bg-opacity-80 fixed min-h-96  right-0 left-0 z-50 flex justify-center items-center w-full md:inset-0  max-h-svh h-svh">
-    <div className="relative p-4 w-full max-w-xl mx-auto">
-        <div className="relative bg-blue-100 dark:text-blue-900 text-blue-700 dark:bg-blue-200 rounded-lg shadow border dark:border-gray-500 divide-y divide-blue-700">
-            
-            <div className="px-4 py-3 flex items-center gap-4">
-                <OctagonAlert size={36} className="   " />
-                <h3 className=" text-lg font-semibold  ">Are you sure you want to add  student ?</h3>
-                
-            </div>
-            <div className="px-4 py-3 ">
-                 <h2 className="mb-2 font-medium">With the information below :</h2>
-                 <ul className=" list-disc px-3">
-                 {
-                       Object.keys(data).map(key => 
-                       (key !== 'confirmPassword' && key !== 'password') && <li>
-                           <span className=" capitalize font-semibold">{key} : </span> 
-                           <span>{data[key]}</span>
-                        </li>
-                     )
-                     }
-                 </ul>
-                </div>
-            <div className="flex items-center justify-end  px-4 py-3">
-                
-                <button 
-                    data-modal-hide="popup-modal" 
-                    type="button" 
-                    className="py-2.5 px-5 ms-3 text-sm font-medium  focus:outline-none  rounded-lg  hover:text-blue-600 focus:z-10 focus:ring-4 focus:ring-gray-100 " 
-                    onClick={()=>setIsSubmited(false)}
-                >
-                    No, cancel 
-                </button>
-                <button 
-                data-modal-hide="popup-modal" 
-                type="button"  
-                onClick={handleClick}
-                className={`text-gray-50 bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300  font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center`}
-                >
-                    Yes,Add it
-                </button>
-            </div>
+import {Check } from 'lucide-react'
+
+const ConfirmAddModal = ({ 
+  isOpen, 
+  onClose, 
+  onConfirm, 
+  itemName = "item",
+  confirmText = "Add Item",
+  cancelText = "Cancel"
+}) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      {/* Backdrop */}
+      <div 
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm" 
+        onClick={onClose}
+      ></div>
+      
+      {/* Modal */}
+      <div className="relative w-full max-w-md p-6 mx-4 text-center dark:bg-gray-900 bg-gray-50 rounded-lg shadow-xl">
+        {/* Icon */}
+        <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full dark:bg-purple-900/40 bg-purple-100">
+          <Check className="size-8 text-green-500" />
         </div>
+        
+        {/* Title */}
+        <h3 className="mb-3 text-xl font-medium text-gray-700 dark:text-gray-50">Confirm Add</h3>
+        
+        {/* Message */}
+        <p className="mb-8 dark:text-gray-300 text-gray-500">
+          Are you sure you want to add {itemName}?
+        </p>
+        
+        {/* Buttons */}
+        <div className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-center">
+          <button
+            onClick={onClose}
+            className="px-4 py-2 text-sm font-medium dark:text-gray-300 text-gray-500 bg-transparent border dark:border-gray-600 border-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+          >
+            {cancelText}
+          </button>
+          <button
+            onClick={onConfirm}
+            className="px-4 py-2 text-sm font-medium text-white rounded-lg bg-purple-500 hover:bg-purple-600 transition-colors"
+          >
+            {confirmText}
+          </button>
+        </div>
+      </div>
     </div>
-</div>
-    )
-}
+  );
+};
+
+export default ConfirmAddModal;

@@ -1,14 +1,14 @@
 import { useEffect, useState, useCallback } from "react";
-import { days, sessions, scheduleData } from "../../../../Data/ScheduleData";
+import { days, sessions, teacheSscheduleData, roomScheduleData, groupScheduleData } from "../../../../Data/ScheduleData";
 import { successNotify } from "../../../../Components/Common/Toast";
-import DeleteSessionModal from "./DeleteSessionModal";
-import ManagingScheduleModal from "./ManagingScheduleModal";
+import DeleteSessionModal from "./modals/DeleteSessionModal";
+import ManagingScheduleModal from "./modals/ManagingScheduleModal";
 import ScheduleContainer from "../../../../Components/Schedule/ScheduleContainer";
 import { exportScheduleAsPdf } from "../../../../utils/Export/ExportScheduleAsPdf";
-import ContextMenu from "./ContextMenu";
-import ClearScheduleModal from "./ClearScheduleModal";
+import ContextMenu from "./modals/ContextMenu";
+import ClearScheduleModal from "./modals/ClearScheduleModal";
 import { useParams } from "react-router-dom";
-import { users } from "../../../../Data/Users";
+import { rooms, groups, teachers } from "../../../../Data/Users";
 import ScheduleHeader from "../../../../Components/Schedule/ScheduleHeader";
 import RestoreClearedSchedule from "../../../../Components/Schedule/RestoreClearedSchedule";
 import useScheduleVersion from "../../../../utils/Hooks/useScheduleVersion";
@@ -16,9 +16,37 @@ import useSessionManagement from "../../../../utils/Hooks/useSessionManaging";
 import { useModalState } from "../../../../utils/Hooks/useScheduleModal";
 import RenderSessionCell from "../../../../Components/Schedule/RenderCell";
 import { rightClick } from "../../../../utils/AdminScheduleFunction/rightClick";
+import Events from "../../../../Components/Schedule/Events";
+
+const dataSet = {
+    'teacher' : {
+        scheduleData : teacheSscheduleData ,
+        data : teachers,
+        primaryKey  : 'matricule',
+        name : 'fullName'
+    },
+    'group' : {
+        scheduleData : groupScheduleData ,
+        data : groups,
+        primaryKey  : 'idGroup',
+        name : 'libel'
+    },
+    'room' : {
+        scheduleData : roomScheduleData ,
+        data : rooms,
+        primaryKey  : 'idRoom',
+        name : 'roomName'
+    },
+}
 export default function Schedule() {
-    const {matricule} = useParams();
-    const teacher = users.find(user => user.matricule === matricule);
+    const {entity,id} = useParams();
+
+    
+    const {scheduleData , data , primaryKey,name} = dataSet[entity]
+    const scheduleSessions = entity === 'group' ? sessions.filter(session => session.start !== '19:30' ) : sessions
+    
+    const item = data.find(el => isNaN(Number(id)) ? el[primaryKey] === id : el[primaryKey] === Number(id));
+
     const [contextMenuPosition, setContextMenuPosition] = useState({ top: 0, left: 0 });
 
     const {
@@ -56,17 +84,22 @@ export default function Schedule() {
         } = useSessionManagement(getCurrentSchedule() , modal, versioning);
 
         const handleSaveChanges = () => {
+            successNotify('changes saved successfully') 
+        };
+
+        const handleExport = () => {
             const success = exportScheduleAsPdf({
                 schedule,
                 days,
                 sessions,
-                teacherName: teacher?.fullName
+                entityName : item[name]
+
             });
 
             if (success) {
-                successNotify('Schedule exported successfully');
+                successNotify('Schedule saved & exported successfully');
             }
-        };
+        }
 
         const handleRowRightClick = (cell,e) => rightClick(cell,e,selectedSession,setSelectedSession,setContextMenuPosition,openModal);
     
@@ -92,11 +125,11 @@ export default function Schedule() {
 
 
     return (
-        <div className="max-w-6xl mx-auto pt-4">
+        <div className="max-w-6xl mx-auto py-4">
             {
                isScheduleClearedTemporarly.is_temporary && (
                     <RestoreClearedSchedule 
-                        teacherName={teacher?.fullName}
+                        entityName={item?.[name]}
                         isScheduleClearedTemporarly={isScheduleClearedTemporarly}
                         restoreSchedule={restoreSchedule}
                     />
@@ -113,23 +146,27 @@ export default function Schedule() {
                         scheduleLength={schedule.length}
                         handleClearSchedule={() => openModal('clearSchedule')}
                         handleSaveChanges={handleSaveChanges}
-                        teacherName={teacher?.fullName}
+                        entityName={item?.[name]}
+                       
+                        handleExport = {handleExport}
                     />
 
                     <ScheduleContainer 
-                        sessions={sessions} 
+                        sessions={scheduleSessions} 
                         days={days} 
                     >
                         {
                             days.map((day,dayIndex)=>
-                                sessions.map((session, sessionIndex) => 
+                                scheduleSessions.map((session, sessionIndex) => 
                                 <RenderSessionCell 
                                     day={day} 
                                     dayIndex={dayIndex} 
                                     session={session} 
                                     sessionIndex={sessionIndex} 
                                     schedule={schedule} 
+                                    entity = {entity}
                                     handleRowRightClick={handleRowRightClick}
+                                    entityName={item[entity]}
                                 /> 
                             ))
                         }
@@ -137,6 +174,7 @@ export default function Schedule() {
                 </>
                )
             }
+            <Events name={ item?.[name]} />
            
             {getModalState('scheduleManaging') && (
                 <ManagingScheduleModal 
@@ -145,7 +183,9 @@ export default function Schedule() {
                     handleSubmit={addSession}
                     restoreSession={restoreSession}
                     handleBackToOriginal={restoreToOriginal}
-                    teacherName={teacher?.fullName}
+                    entityName={item[name]}
+                    entity = {entity}
+                    
                 />
             )}
 

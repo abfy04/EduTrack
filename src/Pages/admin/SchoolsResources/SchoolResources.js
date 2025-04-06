@@ -99,11 +99,11 @@ const SchoolResources = () => {
 
 
   return (
-    <div className="py-6 px-8 space-y-6">
+    <div className="py-6 px-8 space-y-6 max-w-screen-2xl mx-auto xl:space-y-10">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">School Resources</h1>
+          <h1 className="text-lg xl:text-2xl font-bold text-gray-900 dark:text-white">School Resources</h1>
           <p className="text-gray-500 dark:text-gray-400">Manage your academic resources and schedules</p>
         </div>
         
@@ -115,14 +115,14 @@ const SchoolResources = () => {
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Total Levels</p>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mt-1">{stats.levels.total}</h3>
+              <p className="text-sm 2xl:text-base font-medium text-gray-500 dark:text-gray-400">Total Levels</p>
+              <h3 className="text-2xl 2xl:text-3xl font-bold text-gray-900 dark:text-white mt-1">{stats.levels.total}</h3>
             </div>
             <div className="p-3 bg-blue-100 dark:bg-blue-900/50 rounded-lg">
-              <GraduationCap className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+              <GraduationCap className="size-6 2xl:size-9 text-blue-600 dark:text-blue-400" />
             </div>
           </div>
-          <div className="mt-4 flex items-center text-sm">
+          <div className="mt-4 flex items-center text-sm 2xl:text-base">
             <span className="text-green-500 dark:text-green-400">12 total filieres</span>
             <span className="mx-2 text-gray-300 dark:text-gray-600">|</span>
             <span className="text-gray-500 dark:text-gray-400">Across all levels</span>
@@ -133,14 +133,14 @@ const SchoolResources = () => {
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Total Groups</p>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mt-1">{stats.groups.total}</h3>
+              <p className="text-sm 2xl:text-base font-medium text-gray-500 dark:text-gray-400">Total Groups</p>
+              <h3 className="text-2xl 2xl:text-3xl font-bold text-gray-900 dark:text-white mt-1">{stats.groups.total}</h3>
             </div>
             <div className="p-3 bg-purple-100 dark:bg-purple-900/50 rounded-lg">
-              <Users className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+              <Users className="size-6 2xl:size-9 text-purple-600 dark:text-purple-400" />
             </div>
           </div>
-          <div className="mt-4 flex items-center text-sm">
+          <div className="mt-4 flex items-center text-sm 2xl:text-base">
             <span className="text-green-500 dark:text-green-400">Across 3 years</span>
             <span className="mx-2 text-gray-300 dark:text-gray-600">|</span>
             <span className="text-gray-500 dark:text-gray-400">Active groups</span>
@@ -151,14 +151,14 @@ const SchoolResources = () => {
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Teachers with Schedules</p>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mt-1">{stats.teachers.withSchedules}</h3>
+              <p className="text-sm 2xl:text-base font-medium text-gray-500 dark:text-gray-400">Teachers with Schedules</p>
+              <h3 className="text-2xl 2xl:text-3xl font-bold text-gray-900 dark:text-white mt-1">{stats.teachers.withSchedules}</h3>
             </div>
             <div className="p-3 bg-orange-100 dark:bg-orange-900/50 rounded-lg">
-              <Calendar className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+              <Calendar className="size-6 2xl:size-9 text-orange-600 dark:text-orange-400" />
             </div>
           </div>
-          <div className="mt-4 flex items-center text-sm">
+          <div className="mt-4 flex items-center text-sm 2xl:text-base">
             <span className="text-red-500 dark:text-red-400">{stats.teachers.withoutSchedules} without schedules</span>
             <span className="mx-2 text-gray-300 dark:text-gray-600">|</span>
             <span className="text-gray-500 dark:text-gray-400">Need attention</span>
@@ -169,14 +169,14 @@ const SchoolResources = () => {
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">Available Rooms</p>
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mt-1">{stats.rooms.available}</h3>
+              <p className="text-sm 2xl:text-base font-medium text-gray-500 dark:text-gray-400">Available Rooms</p>
+              <h3 className="text-2xl 2xl:text-3xl font-bold text-gray-900 dark:text-white mt-1">{stats.rooms.available}</h3>
             </div>
             <div className="p-3 bg-green-100 dark:bg-green-900/50 rounded-lg">
-              <Building2 className="w-6 h-6 text-green-600 dark:text-green-400" />
+              <Building2 className="size-6 2xl:size-9 text-green-600 dark:text-green-400" />
             </div>
           </div>
-          <div className="mt-4 flex items-center text-sm">
+          <div className="mt-4 flex items-center text-sm 2xl:text-base">
             <span className="text-gray-500 dark:text-gray-400">{stats.rooms.occupied} rooms occupied</span>
             <span className="mx-2 text-gray-300 dark:text-gray-600">|</span>
             <span className="text-gray-500 dark:text-gray-400">Out of {stats.rooms.total}</span>
@@ -189,11 +189,11 @@ const SchoolResources = () => {
         <Link to="/schoolResources/addFiliere" className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow duration-200 cursor-pointer">
           <div className="flex items-start gap-4">
             <div className="p-3 rounded-lg bg-blue-100 dark:bg-blue-900/50">
-              <Plus className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+              <Plus className="size-6 2xl:size-9 text-blue-600 dark:text-blue-400" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Add New Filiere</h3>
-              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Create a new filiere or group</p>
+              <h3 className="text-lg 2xl:text-2xl font-semibold text-gray-900 dark:text-white">Add New Filiere</h3>
+              <p className="mt-1 text-sm 2xl:text-base text-gray-500 dark:text-gray-400">Create a new filiere or group</p>
             </div>
           </div>
         </Link>
@@ -201,11 +201,11 @@ const SchoolResources = () => {
         <Link to="/schoolResources/schedules" className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow duration-200 cursor-pointer">
           <div className="flex items-start gap-4">
             <div className="p-3 rounded-lg bg-purple-100 dark:bg-purple-900/50">
-              <Calendar className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+              <Calendar className="size-6 2xl:size-9 text-purple-600 dark:text-purple-400" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Manage Schedules</h3>
-              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">View and edit teachers schedules</p>
+              <h3 className="text-lg 2xl:text-2xl font-semibold text-gray-900 dark:text-white">Manage Schedules</h3>
+              <p className="mt-1 text-sm 2xl:text-base text-gray-500 dark:text-gray-400">View and edit teachers schedules</p>
             </div>
           </div>
         </Link>
@@ -213,11 +213,11 @@ const SchoolResources = () => {
         <Link to="/schoolResources/rooms" className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow duration-200 cursor-pointer">
           <div className="flex items-start gap-4">
             <div className="p-3 rounded-lg bg-orange-100 dark:bg-orange-900/50">
-              <Building2 className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+              <Building2 className="size-6 2xl:size-9 text-orange-600 dark:text-orange-400" />
             </div>
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Room Management</h3>
-              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">Manage classrooms and facilities</p>
+              <h3 className="text-lg 2xl:text-2xl font-semibold text-gray-900 dark:text-white">Room Management</h3>
+              <p className="mt-1 text-sm 2xl:text-base text-gray-500 dark:text-gray-400">Manage classrooms and facilities</p>
             </div>
           </div>
         </Link>
@@ -227,7 +227,7 @@ const SchoolResources = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Filieres by Level */}
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Filieres by Level</h2>
+          <h2 className="text-lg 2xl:text-2xl font-semibold text-gray-900 dark:text-white mb-4">Filieres by Level</h2>
           <DonutCHart 
             data={filieresData}
             style={filieresStyle}
@@ -236,7 +236,7 @@ const SchoolResources = () => {
 
         {/* Groups by Year */}
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Groups by Year</h2>
+          <h2 className="text-lg 2xl:text-2xl font-semibold text-gray-900 dark:text-white mb-4">Groups by Year</h2>
           <DonutCHart 
             data={groupsData}
             style={groupsStyle}

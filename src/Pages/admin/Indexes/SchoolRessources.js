@@ -49,7 +49,7 @@ export default function SchoolResources(){
                     <Link 
                         to={link.link}
                         key={link.name}
-                        className={`px-3 py-1.5 rounded-lg font-medium text-sm
+                        className={`px-3 py-1.5 rounded-lg font-medium text-sm  2xl:text-xl
                         ${path === link.link ? 
                         ' bg-purple-300 text-purple-700 dark:bg-purple-800/50 dark:text-purple-300 hover:bg-purple-200 dark:hover:bg-purple-800/70 ' 
                         : 
@@ -69,18 +69,19 @@ export default function SchoolResources(){
         <div className="min-h-screen ">
             <nav className="w-full border-b border-gray-200 dark:border-gray-800 
                 bg-gradient-to-r from-purple-50 to-purple-100 dark:from-purple-900/50 dark:to-purple-800/50 
-                px-6 py-3 flex justify-between items-center shadow-sm">
-                <Links/>
-                {
-                    (path === '/schoolResources/filieres' || path === '/schoolResources/groups' || path === '/schoolResources/rooms' ) && 
-                    <Link to={`/schoolResources/${addLink[path]}`} className="px-4 py-2 rounded-lg font-medium text-sm
-                        bg-purple-600 text-white hover:bg-purple-700
-                        dark:bg-purple-500 dark:hover:bg-purple-600
-                        transition-colors duration-200">
-                        Add New
-                    </Link>
-                }
-                
+                px-6 py-3 2xl:py-6 flex justify-between items-center shadow-sm">
+                <div className="max-w-screen-2xl mx-auto flex items-center justify-between w-full">
+                    <Links/>
+                    {
+                        (path === '/schoolResources/filieres' || path === '/schoolResources/groups' || path === '/schoolResources/rooms' ) && 
+                        <Link to={`/schoolResources/${addLink[path]}`} className="px-4 py-2 rounded-lg font-medium text-sm 2xl:text-xl
+                            bg-purple-600 text-white hover:bg-purple-700
+                            dark:bg-purple-500 dark:hover:bg-purple-600
+                            transition-colors duration-200">
+                            Add New
+                        </Link>
+                    }
+                </div>
             </nav>
 
             <Outlet/>

@@ -3,10 +3,14 @@ import {  useNavigate, useParams } from "react-router-dom";
 import {Form , FormContainer} from "../../../Components/form/GlobalComponents";
 import useForm from "../../../utils/Hooks/useForm";
 import {  RatioField } from "../../../Components/form/RatioField";
-import { Select } from "../../../Components/form/Select";
+import {  SelectField } from "../../../Components/form/Select";
 import { TextField } from "../../../Components/form/Inputs";
 import { PasswordField } from "../../../Components/form/Inputs";
 import { DateField } from "../../../Components/form/Fields";
+import ConfirmAddModal from "../../../Components/Modals/ConfirmAdding";
+import { useState } from "react";
+
+import { userValidation } from "../../../utils/formsValidation";
 const add = {
   'teacher' : {
    title : 'Teacher',
@@ -20,9 +24,11 @@ const add = {
 export default function AddUser(){
   const {role} = useParams()
   const nv= useNavigate()
+  const [isConfirmAddingOpen, setIsConfirmAddingOpen] = useState(false);
+
   const initialValues = {
     fullName : '',
-    birthday : '',
+    birthdate : '',
     gender : 'Male',
     matricule : '',
     email : '',
@@ -30,42 +36,23 @@ export default function AddUser(){
     password : '',
     confirmPassword : ''
   }
-  const validation = {
-    fullName : {
-      message : 'The name should not contain symbols or numbers',
-      regex : /^[A-Za-z]+$/
-    },
-    birthday : {
-      message : 'The age should be between 18 and 65',
-      validateFunc: (birthDate) => {
-        const age = calculateAge(birthDate);
-        return age >= 18 && age <= 65;
-      },
-    },
-    matricule : {
-      message : 'The matricule should not contain symbold',
-      regex : /^[a-zA-Z0-9]+$/
-    },
-    email : {
-      regex : /^[a-zA-Z0-9._%+-]+@ofppt\.[a-zA-Z]{2,}$/ ,
-      message : 'invalid email , enter profetionnal email'
-    },
-    password : {
-      message : 'Your password must be at least 8 characters long, and include lowercase and uppercase letters, numbers and symbols',
-      regex : /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W)[A-Za-z\d\W]{8,}$/
-    },
-    confirmPassword : {
-      message : 'The passwords do not match. Please make sure both password fields are identical.',
-      check : 'password'
-    }
-  }
- 
-  const {values,errors,handleChange,handleFocus,handleSubmit,isFormValid}= useForm(initialValues,validation,'add')
-  const onSubmit = ()=>{
-    localStorage.setItem('toastMessage', 'user added seccussfully');
-    nv(-1) 
-  }
+
+  const roles = ['Absence Manager','Teacher'].map(role => ({value : role,option : role}))
+  const {values,errors,handleChange,handleFocus,handleSubmit,isSubmitDisabled,resetForm}= useForm(initialValues,userValidation,'add')
   
+  const onSubmit = ()=>{
+    setIsConfirmAddingOpen(true)
+  }
+  const handleConfirm = ()=>{
+    localStorage.setItem('toastMessage', 'user added seccussfully');
+    resetForm()
+    nv(-1)
+  }
+
+  const handleClose = ()=>{
+    resetForm()
+    setIsConfirmAddingOpen(false)
+  }
     return (
       <> 
         <div className="mb-8 mt-6 px-8">
@@ -85,7 +72,7 @@ export default function AddUser(){
         </div>
     
         <Form
-           submitBtnIsDisabled={!isFormValid}
+           submitBtnIsDisabled={isSubmitDisabled()}
            submitBtnTitle={'Add User'}
            submitFunction={handleSubmit(onSubmit)}
            maxWidth="md:max-w-3xl pb-4"
@@ -100,33 +87,26 @@ export default function AddUser(){
                   value={values.fullName}
                   placeHolder={"user's full name"}
                   icon={User}
-
                   handleChange={handleChange}
                   handleFocus={handleFocus}
-            
-                 
-                  
                 />
-                
-                    
-                    <DateField 
-                       name={'birthday'}
-                       label={'BirthDay'}
-                       handleChange={handleChange}
-                       error={errors.birthday}
-                       value={values.birthday}
-                       placeholder={'Select user\'s birthday'}
-                       
-                 
 
-                    />
-                    <RatioField 
-                        name={'gender'}
-                        label={'Gender'}
-                        items={['Male','Female']}
-                        handleChange={handleChange}
-                        value={values.gender}
-                    />
+                <DateField 
+                  name={'birthdate'}
+                  label={'Birth Date'}
+                  handleChange={handleChange}
+                  error={errors.birthdate}
+                  value={values.birthdate}
+                  placeholder={'Select user\'s birth date'}
+                  handleFocus={handleFocus}
+                />
+                <RatioField 
+                    name={'gender'}
+                    label={'Gender'}
+                    items={['Male','Female']}
+                    handleChange={handleChange}
+                    value={values.gender}
+                />
                
             </FormContainer>
 
@@ -159,14 +139,15 @@ export default function AddUser(){
                   />
                   {
                     !role &&
-                    <Select
+                    <SelectField
                       label={'Role'}
                       name={'role'}
                       value={values.role}
                       placeholder={'Select user role'}
                       handleChange={handleChange}
-                      items={['Absence Manager','Teacher']}
-                  />}
+                      items={roles}
+                    />
+                    }
 
                 </div>
                 <div className=' flex  gap-2 w-full'>
@@ -188,31 +169,22 @@ export default function AddUser(){
                     value={values.confirmPassword}
                     handleChange={handleChange}
                     handleFocus={handleFocus}
-                    placeHolder={"Confirm user's password"}
-               
-                    
+                    placeHolder={"Confirm user's password"} 
                 />
-
                 </div>
-  
             </FormContainer>
           </div>
         </Form>
+        
+        <ConfirmAddModal 
+          isOpen={isConfirmAddingOpen} 
+          onClose={handleClose} 
+          onConfirm={handleConfirm} 
+          itemName={role ? (add[role].title || values.role) : 'User'}
+          confirmText={`Add ${role ? (add[role].title || values.role) : 'User'}`}
+          cancelText="Cancel"
+        />
       </>
     );
 }
 
-function calculateAge(birthDate) {
-  const birth = new Date(birthDate);
-  const today = new Date();
-
-  let age = today.getFullYear() - birth.getFullYear();
-
-  // Adjust if the birthday hasn't occurred yet this year
-  const monthDiff = today.getMonth() - birth.getMonth();
-  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
-    age--;
-  }
-
-  return age;
-}

@@ -1,15 +1,16 @@
 import { PencilRuler, Ruler, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import { successNotify } from "../../../Components/Common/Toast";
 import useForm from "../../../utils/Hooks/useForm";
 import { TextField } from "../../../Components/form/Inputs";
-import { Select } from "../../../Components/form/Select";
+import { SelectField } from "../../../Components/form/Select";
 import {Form , FormContainer} from "../../../Components/form/GlobalComponents";
-
+import { useState } from "react";
+import ConfirmAddModal from "../../../Components/Modals/ConfirmAdding";
 const niveaux = ['Technicien Specialise', 'Technicien', 'Qualification', 'Specialisation']
-
+const niveauxOptions = niveaux.map(item => ({option: item, value: item}))
 export default function AddFiliere() {
+  const [isConfirmAddingOpen,setIsConfirmAddingOpen] = useState(false)
   const nv = useNavigate();
   const initValues = {
     niveau: '',
@@ -21,10 +22,20 @@ export default function AddFiliere() {
       regex: /^[A-Za-z]+$/
     }
   }
-  const { values, errors, handleChange, handleFocus, handleSubmit, isFormValid } = useForm(initValues, validations)
+  const { values, errors, handleChange, handleFocus, handleSubmit, isSubmitDisabled,resetForm } = useForm(initValues, validations,'add')
 
-  const onSubmit = () => {
-    successNotify('filiere added seccussfully')
+  const onSubmit = ()=>{
+    setIsConfirmAddingOpen(true)
+  }
+  const handleConfirm = ()=>{
+    localStorage.setItem('toastMessage', 'filiere added seccussfully');
+    resetForm()
+    nv(-1)
+  }
+
+  const handleClose = ()=>{
+    resetForm()
+    setIsConfirmAddingOpen(false)
   }
 
   return (
@@ -46,20 +57,22 @@ export default function AddFiliere() {
       </div>
       <ToastContainer pauseOnHover={false} closeButton={false} />
       <Form 
-        submitBtnIsDisabled={!isFormValid} 
+        submitBtnIsDisabled={isSubmitDisabled()} 
         submitFunction={handleSubmit(onSubmit)} 
         submitBtnTitle={'Add Filiere'}
         maxWidth="md:max-w-3xl"
       >
         <FormContainer title="Filiere Information" icon={PencilRuler}>
-          <Select 
+          <SelectField 
             label={'Niveau'}
             name={'niveau'}
             value={values.niveau}
             placeholder={'Select niveau'}
             handleChange={handleChange}
-            items={niveaux}
+            items={niveauxOptions}
+
           />
+          
           <TextField 
             error={errors.libel}
             name={'libel'}
@@ -72,6 +85,14 @@ export default function AddFiliere() {
           />
         </FormContainer>
       </Form>
+      <ConfirmAddModal 
+        isOpen={isConfirmAddingOpen} 
+        onConfirm={handleConfirm} 
+        onClose={handleClose} 
+        itemName={'filiere'}
+        confirmText="Confirm filiere adding"
+        cancelText="Cancel adding" 
+      />
     </>
   );
 }

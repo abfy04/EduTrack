@@ -3,7 +3,7 @@ import { useModalContext } from '../../utils/Context/ModalContext'
 
 import { Expand, Minimize2, XOctagon, Edit, Printer } from 'lucide-react'
 import DisplaySchedule from '../Schedule/DisplaySchedule'
-import { scheduleData } from '../../Data/ScheduleData'
+import { teacheSscheduleData } from '../../Data/ScheduleData' 
 import { Link } from 'react-router-dom'
 export default function MoreInfoModal(){
     
@@ -64,7 +64,7 @@ export default function MoreInfoModal(){
                        
                         <div className={`${isZoomed ? 'h-[100%]' : 'max-h-[calc(95vh-6rem)]'} overflow-y-auto px-6 py-2`}>
                            <DisplaySchedule 
-                              data={scheduleData}
+                              data={teacheSscheduleData}
                               title={types[selectedItem?.matricule ? 'Teacher Schedule' : selectedItem?.idRoom ? 'Room Schedule' : 'Group Schedule']}
                               subtitle={selectedItem?.fullName || selectedItem?.libel || selectedItem?.roomName}
                               type={selectedItem?.matricule ? 'teacher' : selectedItem?.idRoom ? 'room' : 'group'}

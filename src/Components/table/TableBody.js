@@ -67,7 +67,7 @@ export default function TableBody({ filteredData, tableConfig,  gridTemplateColu
 
                     {columns.map((column, index) => (
                         <div key={index}>
-                            <div className="text-sm">{row[column.field]}</div> 
+                            <div className="text-sm">{column.render ? column.render(row) : row[column.field]}</div> 
                         </div>
                     ))}
                     

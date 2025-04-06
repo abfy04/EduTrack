@@ -22,7 +22,7 @@ export default function Groups(){
     })
     const config = {
      name : 'group',
-     actions :false,
+     actions :true,
      selectabel : false,
      columns : [
        { 

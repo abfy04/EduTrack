@@ -5,7 +5,7 @@ import { ToastContainer } from "react-toastify";
 import { useEffect } from "react";
 import { successNotify } from "../../../Components/Common/Toast";
 import { TableProvider } from '../../../utils/Context/TableContext';
-
+import { calculateAge } from '../../../utils/calcAge';
 export default function Teachers(){
     useEffect(()=>{
       const message = localStorage.getItem('toastMessage')
@@ -19,7 +19,7 @@ export default function Teachers(){
     })
     const config = {
      name : 'teacher',
-     actions :false,
+     actions :true,
      selectabel : false,
      columns : [
        { 
@@ -32,7 +32,8 @@ export default function Teachers(){
        },
        { 
          field: 'age', 
-         header: 'Age'
+         header: 'Age',
+         render : (row) => calculateAge(row.birthDate)
        },
        { 
          field: 'gender', 

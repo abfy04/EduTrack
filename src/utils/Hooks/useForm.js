@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 const useForm = (initialValues, validationRules = {},typeForm) => {
   const [values, setValues] = useState(initialValues);
@@ -9,8 +9,7 @@ const useForm = (initialValues, validationRules = {},typeForm) => {
     setValues({
       ...values,
       [name]: value,
-    });
-    
+    });  
   };
 
   const handleFocus = (name) => {
@@ -21,25 +20,35 @@ const useForm = (initialValues, validationRules = {},typeForm) => {
    
   };
 
-  const isSubmitDisabled = ()=>{
+  const isSubmitDisabled = useCallback(()=>{
+    
     if (typeForm === 'add') {
-       return !Object.keys(validationRules).every((key) => values[key] && !errors[key]);
+      const isEmptyFields = Object.keys(values).some(key => values[key] === '')
+      if (isEmptyFields) return isEmptyFields
+
+      
     }
     if (typeForm === 'edit') {
       return !Object.keys(values).some((key) => values[key] !== initialValues[key]);
     }
-    return true
+    
+  },[values,initialValues,typeForm])
 
-  }
+
 
   // Handle form submission
   const handleSubmit = (callback) => (e) => {
     e.preventDefault();
     if (validate()) {
       callback(); 
-      setValues(initialValues); // Execute the callback function (e.g., API call)
+      // Execute the callback function (e.g., API call)
     }
   };
+  
+  const resetForm = ()=>{
+    setValues(initialValues);
+    setErrors({});
+  }
   // Validation using regex
   const validate = () => {
     let tempErrors = {};
@@ -65,10 +74,14 @@ const useForm = (initialValues, validationRules = {},typeForm) => {
       }
       if (validationRules[key]?.check) {
         const { check, message } = validationRules[key];
-        if (values[key] !== values[check]) {
-          tempErrors[key] = message || `${key} is invalid`;
+        // Only run the check if the field we depend on (e.g., "password") has no errors and 
+        const isCheckTargetValid = !tempErrors[check];
+
+        if (isCheckTargetValid && values[key] !== values[check]) {
+          tempErrors[key] = message || `${key} does not match ${check}`;
           isValid = false;
         }
+        
       }
     });
 
@@ -83,6 +96,7 @@ const useForm = (initialValues, validationRules = {},typeForm) => {
     handleFocus,
     handleSubmit,
     isSubmitDisabled, 
+    resetForm
   };
 };
 

@@ -86,26 +86,25 @@ const links = {
   ]
 };
 
-const size = 20;
 const icons = {
   'Admin': {
-    Dashboard: <LayoutGrid size={size} />,
-    'Human Resources': <Users size={size}/>,
-    'School Resources': <School size={size}/>,
-    'Historiques': <History size={size} />,
-    'Configuration': <Bolt size={size} />
+    Dashboard: <LayoutGrid className="size-5 2xl:size-9" />,
+    'Human Resources': <Users className="size-5 2xl:size-9" />,
+    'School Resources': <School className="size-5 2xl:size-9" />,
+    'Historiques': <History className="size-5 2xl:size-9" />,
+    'Configuration': <Bolt className="size-5 2xl:size-9" />
   },
   'Absence Manager': {
-    'Dashboard': <LayoutGrid size={size} />,
-    'Justification': <CheckCircle size={size} />,
-    'Absence List': <ClipboardList size={size} />,
-    'Schedules': <CalendarFold size={size}/>,
-    'Students': <GraduationCap size={size}/>
+    'Dashboard': <LayoutGrid className="size-5 2xl:size-9" />,
+    'Justification': <CheckCircle className="size-5 2xl:size-9" />,
+    'Absence List': <ClipboardList className="size-5 2xl:size-9" />,
+    'Schedules': <CalendarFold className="size-5 2xl:size-9" />,
+    'Students': <GraduationCap className="size-5 2xl:size-9" />
   },
   'Teacher': {
-    'Track Progress': <TrafficCone size={size} />,
-    'Schedule': <CalendarFold size={size}/>,
-    'Schedules Archive': <History size={size} />
+    'Track Progress': <TrafficCone className="size-5 2xl:size-9" />,
+    'Schedule': <CalendarFold className="size-5 2xl:size-9" />,
+    'Schedules Archive': <History className="size-5 2xl:size-9" />
   }
 };
 
@@ -149,7 +148,7 @@ export default function SideBar({ darkMode, setDarkMode, role, setRole }) {
         text-gray-700 dark:text-gray-50
         border-r border-gray-200 dark:border-gray-800
         shadow-lg
-        ${isExpanded ? 'w-72' : 'w-20'}
+        ${isExpanded ? 'w-72 2xl:w-96' : 'w-20 2xl:w-32'}
       `}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -161,11 +160,11 @@ export default function SideBar({ darkMode, setDarkMode, role, setRole }) {
           to={'/'}
           className={`flex items-center gap-3  border-b border-gray-200 dark:border-gray-800
             bg-gradient-to-r from-purple-50 to-purple-100 dark:from-purple-900/50 dark:to-purple-800/50"
-            ${isExpanded ? ' justify-start p-4' : ' justify-center p-5'}
+            ${isExpanded ? ' justify-start p-4 2xl:p-6' : ' justify-center p-5 2xl:p-6'}
             `}
         >
-          <ClipboardList size={20} className="min-w-6 text-purple-600 dark:text-purple-400"/>
-          <h2 className={`text-lg font-bold transition-opacity duration-300 
+          <ClipboardList  className="size-5 2xl:size-9 text-purple-600 dark:text-purple-400"/>
+          <h2 className={`text-lg 2xl:text-2xl font-bold transition-opacity duration-300 
             text-purple-600 dark:text-purple-400
             ${isExpanded ? 'block' : 'hidden'}`}>
             EduTrack
@@ -173,13 +172,13 @@ export default function SideBar({ darkMode, setDarkMode, role, setRole }) {
         </Link>
 
         {/* Navigation Menu */}
-        <nav className="flex-1 p-3">
-          <div className="flex flex-col gap-1">
+        <nav className="flex-1 p-3 ">
+          <div className="flex flex-col gap-1 2xl:gap-4">
             {activeLinks.map(link => (
               <NavLink
                 to={link.pageLink}
                 key={link.pageName}
-                className={`relative flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium text-sm
+                className={`relative flex items-center gap-3 px-3 py-2.5 rounded-lg font-medium text-sm 2xl:text-xl
                   transition-all duration-200 group
                   ${(link.pageLink === '/' ? path === '/' : path.startsWith(link.pageLink))
                     ? 'bg-purple-100 text-purple-700 dark:bg-purple-800/50 dark:text-purple-300 shadow-sm' 
@@ -197,7 +196,7 @@ export default function SideBar({ darkMode, setDarkMode, role, setRole }) {
                 </div>
                 <div className={`flex flex-col transition-opacity duration-300 ${isExpanded ? 'block' : 'hidden'}`}>
                   <span>{link.pageName}</span>
-                  <span className="text-xs text-gray-500 dark:text-gray-400">{link.description}</span>
+                  <span className="text-xs 2xl:text-base text-gray-500 dark:text-gray-400">{link.description}</span>
                 </div>
                 
               </NavLink>
@@ -206,12 +205,12 @@ export default function SideBar({ darkMode, setDarkMode, role, setRole }) {
         </nav>
 
         {/* Footer Section - Always Visible */}
-        <div className="p-3 space-y-2 border-t border-gray-200 dark:border-gray-800 
+        <div className="p-3 2xl:pb-20 space-y-2 border-t border-gray-200 dark:border-gray-800 
           bg-gradient-to-b from-transparent to-gray-50 dark:to-gray-900">
           {/* Theme Toggle */}
           <button
             onClick={() => setDarkMode(darkMode === 'dark' ? 'light' : 'dark')}
-            className={`flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm font-medium
+            className={`flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm 2xl:text-xl font-medium
               transition-all duration-200
               ${darkMode === 'dark'
                 ? 'hover:bg-gray-800 text-yellow-400 hover:text-yellow-300'
@@ -222,7 +221,7 @@ export default function SideBar({ darkMode, setDarkMode, role, setRole }) {
           >
             <div className={`min-w-6 transition-colors duration-200
               ${darkMode === 'dark' ? 'text-yellow-400' : 'text-gray-500'}`}>
-              {darkMode === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+              {darkMode === 'dark' ? <Sun className="size-5 2xl:size-9"/> : <Moon className="size-5 2xl:size-9"/>}
             </div>
             <span className={`transition-opacity duration-300 ${isExpanded ? 'block' : 'hidden'}`}>
               {darkMode === 'dark' ? 'Light Mode' : 'Dark Mode'}
@@ -232,12 +231,12 @@ export default function SideBar({ darkMode, setDarkMode, role, setRole }) {
           {/* Logout Button */}
           <button
             onClick={logOut}
-            className={` flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm font-medium
+            className={` flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm 2xl:text-xl font-medium
               text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20
               transition-all duration-200 ${isExpanded ? ' justify-start' : ' justify-center'}`}
           >
             <div className="min-w-6">
-              <LogOut size={20} />
+              <LogOut className="size-5 2xl:size-9"/>
             </div>
             <span className={`transition-opacity duration-300 ${isExpanded ? 'block' : 'hidden'}`}>
               Log out
@@ -252,11 +251,11 @@ export default function SideBar({ darkMode, setDarkMode, role, setRole }) {
               transition-all duration-200 ${isExpanded ? ' justify-start' : ' justify-center'}`}
           >
             <div className={`min-w-8 h-8 rounded-full flex items-center justify-center ${roleIconsStyle[role]}`}>
-              <User size={20}/>
+              <User className="size-5 2xl:size-9"/>
             </div>
             <div className={`flex flex-col transition-opacity duration-300 ${isExpanded ? 'block' : 'hidden'}`}>
-              <span className="text-sm font-medium">Adam Taylor</span>
-              <span className="text-xs text-gray-500 dark:text-gray-400">{role}</span>
+              <span className="text-sm 2xl:text-xl font-medium">Adam Taylor</span>
+              <span className="text-xs 2xl:text-base text-gray-500 dark:text-gray-400">{role}</span>
             </div>
           </Link>
         </div>

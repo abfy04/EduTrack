@@ -2,7 +2,7 @@ import { Search,X } from "lucide-react"
 export default function SearchBar({searchTerm,handleSearch}){
     return (
         
-        <div className="relative w-64">
+        <div className="relative min-w-64">
         <input
           type="text"
           placeholder="Search..."

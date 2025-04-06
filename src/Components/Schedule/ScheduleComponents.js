@@ -55,7 +55,7 @@ export const Days = ({days})=>{
     )
 }
 
-export const FullSession = ({name,room,status})=>{
+export const FullSession = ({title,sousTitle,status})=>{
     const style = {
         active : '  bg-purple-100   border-purple-600 hover:bg-purple-200 text-purple-700 dark:bg-purple-700/70 dark:hover:bg-purple-600/70  dark:border-purple-600 dark:text-purple-50',
         aDistance : '  bg-cyan-100   border-cyan-600 hover:bg-cyan-200 text-cyan-700 dark:bg-cyan-700/70 dark:hover:bg-cyan-600/70  dark:border-cyan-600 dark:text-cyan-50',
@@ -66,13 +66,13 @@ export const FullSession = ({name,room,status})=>{
         <div
         className={`
             h-full w-full 
-            ${status === 'active' && room === 'A distance' ? style.aDistance  : style[status] }
+            ${status === 'active' && sousTitle === 'A distance' ? style.aDistance  : style[status] }
              border  flex
             px-2 py-1 flex-col items-center justify-center gap-2 rounded-lg  transition-all duration-300
         `}
     >
-        <span className="text-sm font-bold">{name}</span>
-        <span className="text-xs font-medium">{room}</span>
+        <span className="text-sm font-bold">{title}</span>
+        <span className="text-xs font-medium">{sousTitle}</span>
     </div>
     )
 

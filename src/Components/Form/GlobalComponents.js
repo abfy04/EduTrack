@@ -46,7 +46,7 @@ export  function Form ({
   isBtnHidden = false
 }) {
   return (
-      <form className={`max-w-full  mx-auto px-2 md:px-0  ${maxWidth}`} onSubmit={submitFunction}>
+      <form className={`max-w-full  mx-auto px-2 md:px-0  ${maxWidth}`} onSubmit={submitFunction} autoComplete="off">
           {children}
           <div className="flex justify-end">
           {

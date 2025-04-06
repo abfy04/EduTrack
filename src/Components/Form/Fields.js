@@ -10,7 +10,7 @@ import CustomDatePicker from './CustomDatePicker';
 
 
 
-export const DateField = ({name,value,handleChange,error,label,disabled,placeholder}) => {
+export const DateField = ({name,min='',max = '',value,handleChange,error,label,disabled,placeholder,handleFocus,yearsAccepted = 'all' }) => {
     return (
       <FieldContainer label={label} error={error}>
           <CustomDatePicker
@@ -19,7 +19,11 @@ export const DateField = ({name,value,handleChange,error,label,disabled,placehol
               disabled={disabled}
               placeholder={placeholder}
               name={name}
-
+              handleFocus={handleFocus}
+              error={error}
+              yearsAccepted={yearsAccepted}
+              min= {min}
+              max = {max}
           />
     </FieldContainer>
     )

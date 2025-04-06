@@ -5,12 +5,13 @@ import { ToastContainer } from "react-toastify";
 import { CustomSelect } from "../../../Components/form/CustomSelect";
 import { RatioField } from "../../../Components/form/RatioField";
 import { TextField } from "../../../Components/form/Inputs";
-import { successNotify } from "../../../Components/Common/Toast";
 import {Form , FormContainer} from "../../../Components/form/GlobalComponents";
 import useForm from "../../../utils/Hooks/useForm";
-
+import ConfirmAddModal from "../../../Components/Modals/ConfirmAdding";
+import { useState } from "react";
 
 export default function AddGroup() {
+  const [isConfirmAddingOpen,setIsConfirmAddingOpen] = useState(false)
   const nv = useNavigate();
   const initialValues = {
     libel: '',
@@ -20,16 +21,25 @@ export default function AddGroup() {
   const validations = {
     libel: {
       message: 'The libel should not contain symbols',
-      regex: /^[A-Za-z]+\d+$/
+      regex: /^[A-Za-z]+\d*$/
     }
   }
 
-  const { values, errors, handleChange, handleFocus, handleSubmit, isFormValid } = useForm(initialValues, validations)
+  const { values, errors, handleChange, handleFocus, handleSubmit, resetForm,isSubmitDisabled } = useForm(initialValues, validations,'add')
 
-  const onSubmit = () => {
-    successNotify('student added seccussfully')
+  const onSubmit = ()=>{
+    setIsConfirmAddingOpen(true)
+  }
+  const handleConfirm = ()=>{
+    localStorage.setItem('toastMessage', 'group added seccussfully');
+    resetForm()
+    nv(-1)
   }
 
+  const handleClose = ()=>{
+    resetForm()
+    setIsConfirmAddingOpen(false)
+  }
   return (
     <>
       <div className="mb-4 mt-4 px-8">
@@ -49,7 +59,7 @@ export default function AddGroup() {
       </div>
       <ToastContainer pauseOnHover={false} closeButton={false} />
       <Form 
-        submitBtnIsDisabled={!isFormValid}
+        submitBtnIsDisabled={isSubmitDisabled()}
         submitBtnTitle={'Add Group'}
         submitFunction={handleSubmit(onSubmit)}
         maxWidth="md:max-w-3xl pb-4"
@@ -82,6 +92,14 @@ export default function AddGroup() {
           />
         </FormContainer>
       </Form>
+      <ConfirmAddModal 
+        isOpen={isConfirmAddingOpen} 
+        onConfirm={handleConfirm} 
+        onClose={handleClose} 
+        itemName={'group'}
+        confirmText="Confirm group adding"
+        cancelText="Cancel adding" 
+      />
     </>
   );
 }

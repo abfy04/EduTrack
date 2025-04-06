@@ -22,7 +22,7 @@ import { TableProvider } from '../../../../utils/Context/TableContext';
     })
     const config = {
      name : 'filiere',
-     actions :false,
+     actions :true,
      selectabel : false,
      columns : [
        { 

@@ -1,5 +1,5 @@
 import { Calendar } from "lucide-react";
-export default function RestoreClearedSchedule({teacherName,isScheduleClearedTemporarly,restoreSchedule}) {
+export default function RestoreClearedSchedule({entityName,isScheduleClearedTemporarly,restoreSchedule}) {
     const {idSession ,start_date, end_date} = isScheduleClearedTemporarly;
     return (
         <div className="flex flex-col items-center justify-center gap-6 py-8">
@@ -8,7 +8,7 @@ export default function RestoreClearedSchedule({teacherName,isScheduleClearedTem
         </div>
         <div className="text-center">
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-               {teacherName} Schedule is temporarily Deleted 
+               {entityName} Schedule is temporarily Deleted 
             </h3>
             <p className="text-gray-500 dark:text-gray-400">
                 From {start_date} to {end_date}

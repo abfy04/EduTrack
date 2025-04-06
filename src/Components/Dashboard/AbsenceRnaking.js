@@ -1,24 +1,31 @@
 import { useState } from 'react';
-import { TrendingUp, Users, GraduationCap, ArrowUpDown } from 'lucide-react';
+import { TrendingUp, GraduationCap, ArrowUpDown, PencilRuler, Presentation } from 'lucide-react';
 
 const AbsenceRanking = () => {
   // Example data - replace with your actual data
-  const topAbsentGroups = [
-    { name: 'Group A', absences: 45, percentage: 15 },
-    { name: 'Group B', absences: 38, percentage: 12 },
-    { name: 'Group C', absences: 32, percentage: 10 },
-    { name: 'Group D', absences: 28, percentage: 9 },
-    { name: 'Group E', absences: 25, percentage: 8 },
-  ];
-
-  const topAbsentFilieres = [
-    { name: 'Computer Science', absences: 120, percentage: 18 },
-    { name: 'Engineering', absences: 95, percentage: 15 },
-    { name: 'Business', absences: 85, percentage: 13 },
-    { name: 'Arts', absences: 75, percentage: 11 },
-    { name: 'Science', absences: 65, percentage: 10 },
-  ];
-
+  const rankeData = {
+    'groups' : [
+      { name: 'Group A', absences: 45, percentage: 15 },
+      { name: 'Group B', absences: 38, percentage: 12 },
+      { name: 'Group C', absences: 32, percentage: 10 },
+      { name: 'Group D', absences: 28, percentage: 9 },
+      { name: 'Group E', absences: 25, percentage: 8 },
+    ],
+    'filieres':[
+      { name: 'Computer Science', absences: 120, percentage: 18 },
+      { name: 'Engineering', absences: 95, percentage: 15 },
+      { name: 'Business', absences: 85, percentage: 13 },
+      { name: 'Arts', absences: 75, percentage: 11 },
+      { name: 'Science', absences: 65, percentage: 10 },
+    ],
+    'students':[
+      { name: 'Ayoub Fikry', absences: 20, percentage: 18 },
+      { name: 'Mohammed ', absences: 14, percentage: 15 },
+      { name: 'Khadija', absences: 10, percentage: 13 },
+      { name: 'Jawad', absences: 8, percentage: 11 },
+      { name: 'Raja', absences: 7, percentage: 10 },
+    ]
+  }
   const [activeTab, setActiveTab] = useState('groups');
   const [showMostAbsent, setShowMostAbsent] = useState(true);
 
@@ -27,8 +34,8 @@ const AbsenceRanking = () => {
   };
 
   const displayData = showMostAbsent 
-    ? (activeTab === 'groups' ? topAbsentGroups : topAbsentFilieres)
-    : [...(activeTab === 'groups' ? topAbsentGroups : topAbsentFilieres)].reverse();
+    ? rankeData[activeTab]
+    : [...rankeData[activeTab]].reverse();
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
@@ -66,7 +73,7 @@ const AbsenceRanking = () => {
               : 'text-gray-500 hover:text-purple-600 dark:text-gray-400 dark:hover:text-purple-400'
           }`}
         >
-          <Users className="w-4 h-4 inline-block mr-1" />
+          <Presentation className="w-4 h-4 inline-block mr-1" />
           Groups
         </button>
         <button
@@ -77,8 +84,19 @@ const AbsenceRanking = () => {
               : 'text-gray-500 hover:text-purple-600 dark:text-gray-400 dark:hover:text-purple-400'
           }`}
         >
-          <GraduationCap className="w-4 h-4 inline-block mr-1" />
+          <PencilRuler className="w-4 h-4 inline-block mr-1" />
           Filieres
+        </button>
+        <button
+          onClick={() => setActiveTab('students')}
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+            activeTab === 'students'
+              ? 'bg-purple-100 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400'
+              : 'text-gray-500 hover:text-purple-600 dark:text-gray-400 dark:hover:text-purple-400'
+          }`}
+        >
+          <GraduationCap className="w-4 h-4 inline-block mr-1" />
+          Students
         </button>
       </div>
 

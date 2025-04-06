@@ -7,6 +7,7 @@ import { RatioField } from "../../../Components/form/RatioField";
 import { DateField } from "../../../Components/form/Fields";
 import { Select } from "../../../Components/form/Select";
 import useForm from "../../../utils/Hooks/useForm";
+import { userValidation } from "../../../utils/formsValidation";
 
 export default function EditUser() {
     const { id } = useParams()
@@ -14,45 +15,45 @@ export default function EditUser() {
     const user = users.find(user => user.matricule === id)
     const initialValues = {
         fullName: user.fullName,
-        age: user.age,
+        birthDate: user.birthDate,
         gender: user.gender,
         matricule: user.matricule,
-        email: 'email user',
+        email: user.email,
         role: user.role,
         password: '12020',
         confirmPassword: '12020'
     }
-    const validation = {
-        fullName: {
-            message: 'The name should not contain symbols or numbers',
-            regex: /^[A-Za-z]+$/
-        },
-        age: {
-            message: 'The age should be between 18 and 65',
-            validateFunc: (value) => {
-                const age = Number(value);
-                return age >= 18 && age <= 65;
-            },
-        },
-        matricule: {
-            message: '',
-            regex: ''
-        },
-        email: {
-            regex: /^[a-zA-Z0-9._%+-]+@ofppt\.[a-zA-Z]{2,}$/ ,
-            message: 'invalid email , enter profetionnal email'
-        },
-        password: {
-            message: 'Your password must be at least 8 characters long, and include lowercase and uppercase letters, numbers and symbols',
-            regex: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*\W)[A-Za-z\d\W]{8,}$/
-        },
-        confirmPassword: {
-            message: 'The passwords do not match. Please make sure both password fields are identical.',
-            check: 'password'
-        }
-    }
+    const  {email ,fullName,birthDate,matricule} = userValidation
+    const validation = {email ,fullName,birthDate,matricule} 
+    // const validation = {
+    //     fullName: {
+    //         message: 'The name should not contain symbols or numbers',
+    //         regex: /^[A-Za-z]+(\s[A-Za-z]+)*$/
+    //     },
+    //     birthDate: {
+    //         message: 'The age should be between 18 and 65',
+    //         validateFunc: (birthDate) => {
+    //             const age = calculateAge(birthDate);
+    //             return age >= 18 && age <= 65;
+    //         },
+    //     },
+    //     matricule: {
+    //         message: '',
+    //         regex: ''
+    //     },
+    //     email: {
+    //         regex: /^[a-zA-Z0-9][a-zA-Z0-9._%+-]*@ofppt\.ma$/ ,
+    //         message: 'invalid email , enter profetionnal email'
+    //     },
+      
+    // }
 
-    const { values, errors, handleChange, handleFocus, handleSubmit, isFormValid } = useForm(initialValues, validation, 'edit')
+    const { values, errors, handleChange, handleFocus, handleSubmit, isSubmitDisabled } = useForm(initialValues, validation, 'edit')
+
+    const onSubmit = () => {
+        localStorage.setItem('toastMessage', 'User updated successfully')
+        nv(-1)
+    }
 
     return (
         <>
@@ -73,9 +74,9 @@ export default function EditUser() {
             </div>
 
             <Form
-                submitBtnIsDisabled={!isFormValid}
+                submitBtnIsDisabled={isSubmitDisabled()}
                 submitBtnTitle={'Edit User'}
-                submitFunction={handleSubmit}
+                submitFunction={handleSubmit(onSubmit)}
                 maxWidth="md:max-w-3xl pb-4"
             >
                 <div className="space-y-4 w-full">
@@ -93,11 +94,11 @@ export default function EditUser() {
                         />
                         <div className='flex gap-10 w-full'>
                             <DateField 
-                                name={'birthday'}
-                                label={'BirthDay'}
+                                name={'birthDate'}
+                                label={'Birth Date'}
                                 handleChange={handleChange}
-                                error={errors.birthday}
-                                value={values.birthday}
+                                error={errors.birthDate}
+                                value={values.birthDate}
                                 handleFocus={handleFocus}
                             />
                             <RatioField 

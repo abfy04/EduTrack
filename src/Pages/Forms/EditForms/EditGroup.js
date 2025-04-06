@@ -6,7 +6,6 @@ import { CustomSelect } from "../../../Components/form/CustomSelect";
 import { useParams,useNavigate } from "react-router-dom";
 import { filieres, groups } from "../../../Data/Users";
 import {Form , FormContainer} from "../../../Components/form/GlobalComponents";
-import { ToastContainer } from "react-toastify";
 
   
 export default function EditGroup(){
@@ -28,9 +27,10 @@ export default function EditGroup(){
       }
     }
 
-    const {values,errors,handleChange,handleFocus,handleSubmit ,isFormValid} = useForm(initialValues,validations,'edit')
+    const {values,errors,handleChange,handleFocus,handleSubmit ,isSubmitDisabled} = useForm(initialValues,validations,'edit')
     const onSubmit = () => {
-      console.log('group bien Editer');
+      localStorage.setItem('toastMessage','Group bien Editer')
+      nv(-1)
     }
   
     return (
@@ -50,9 +50,8 @@ export default function EditGroup(){
           <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">Edit Group</h1>
         </div>
       </div>
-      <ToastContainer pauseOnHover={false} closeButton={false} />
       <Form 
-        submitBtnIsDisabled={!isFormValid}
+        submitBtnIsDisabled={isSubmitDisabled()}
         submitBtnTitle={'Edit Group'}
         submitFunction={handleSubmit(onSubmit)}
         maxWidth="md:max-w-3xl pb-4"

@@ -1,7 +1,7 @@
 import { jsPDF } from "jspdf";
 import autoTable from 'jspdf-autotable';
 
-export const exportScheduleAsPdf = ({ schedule, days, sessions, teacherName }) => {
+export const exportScheduleAsPdf = ({ schedule, days, sessions, entityName }) => {
   try {
     // Create new PDF document in landscape orientation with half A4 size
     const doc = new jsPDF({
@@ -12,7 +12,7 @@ export const exportScheduleAsPdf = ({ schedule, days, sessions, teacherName }) =
 
     // Add title with smaller font
     doc.setFontSize(14);
-    doc.text(`Schedule - ${teacherName}`, 10, 10);
+    doc.text(`Schedule - ${entityName}`, 10, 10);
     
     // Add subtitle with date
     doc.setFontSize(8);
@@ -120,7 +120,7 @@ export const exportScheduleAsPdf = ({ schedule, days, sessions, teacherName }) =
     }
 
     // Save the PDF
-    doc.save(`schedule-${teacherName.toLowerCase().replace(/\s+/g, '-')}-${new Date().toISOString().split('T')[0]}.pdf`);
+    doc.save(`schedule-${entityName.toLowerCase().replace(/\s+/g, '-')}-${new Date().toISOString().split('T')[0]}.pdf`);
 
     return true;
   } catch (error) {
