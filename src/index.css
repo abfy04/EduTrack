@@ -30,5 +30,11 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #b779f9;
 }
+.select::-webkit-scrollbar {
+  display: none;
+}
+input[type="date"]::-webkit-calendar-picker-indicator , input[type="time"]::-webkit-calendar-picker-indicator {
+ 
+}
 
   }
