@@ -3,7 +3,7 @@ import { ChevronDown } from "lucide-react"
 import SearchBar from "../Common/SearchBar"
 import { FieldContainer } from "./GlobalComponents"
 export default function Select({ config }) {
-    const { name, onChange, defaultValue, placeholder,nameKey, items, position = 'bottom' } = config
+const { name, onChange, defaultValue, placeholder, nameKey, valueKey = 'value', items, position = 'bottom' } = config
     const [isSelectItem, setIsSelectItem] = useState(false)
     const [currentValue, setCurrentValue] = useState(defaultValue)
     const [search, setSearch] = useState('')
@@ -42,7 +42,7 @@ export default function Select({ config }) {
     const handleChange = (value) => setSearch(value.toLowerCase())
     
     const select = (obj) => {
-        onChange(name, obj[nameKey])
+        onChange(name, obj[valueKey])
         setCurrentValue(obj[nameKey])
         setIsSelectItem(false)
         setSearch('')
@@ -104,9 +104,9 @@ export default function Select({ config }) {
                     />
                     <div className="max-h-40 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] space-y-1 mt-2">
                         {data.length > 0 ? (
-                            data.map((item) => (
+                            data.map((item, index) => (
                                 <span
-                                    key={item[nameKey]}
+                                    key={item[nameKey] ?? index}
                                     className={`
                                         block p-2 rounded-md text-sm cursor-pointer
                                         transition-colors duration-200
@@ -118,7 +118,8 @@ export default function Select({ config }) {
                                     `}
                                     onClick={() => select(item)}
                                 >
-                                    {item[nameKey]}
+                                        {item[nameKey]}
+
                                 </span>
                             ))
                         ) : (
@@ -133,21 +134,21 @@ export default function Select({ config }) {
     )
 } 
 
-export const CustomSelect = ({items,label,nameKey , name , handleChange , value , placeholder,position = 'bottom'})=>{
+export const CustomSelect = ({items, label, nameKey, name, handleChange, value, placeholder, position = 'bottom', labelKey = 'option', valueKey = 'value'}) => {
     const config = {
-       name : name, 
-       items : items,
-       onChange : handleChange,
-       placeholder : placeholder,
-       defaultValue : value ,
-       position : position  ,
-       nameKey   
+       name,
+       items,
+       onChange: handleChange,
+       placeholder,
+       defaultValue: items.find(i => i[valueKey] === value)?.[labelKey] || '',
+       position,
+       nameKey: labelKey,
+       valueKey
     }
-   return (
-       <FieldContainer label={label}>
-           <Select config={config}/>
 
+    return (
+       <FieldContainer label={label}>
+           <Select config={config} />
        </FieldContainer>
-       
-   )
+    )
 }

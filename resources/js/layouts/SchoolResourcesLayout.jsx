@@ -9,7 +9,7 @@ const links = [
         route_name: "schoolResources"
     },
     {
-        name: "Filieres",
+        name: "Fields",
         route_name: "schoolResources.fields"
     },
     {
@@ -24,11 +24,18 @@ const links = [
         name: "Schedules",
         route_name: "schoolResources.schedules.index"
     },
+    // {
+    //     name: "Progress",
+    //     route_name: "schoolResources.progress.index"
+    // },
     {
-        name: "Progress",
-        route_name: "schoolResources.progress.index"
+        name: "Levels",
+        route_name: "schoolResources.levels"
     },
-    
+    {
+        name: "Options",
+        route_name: "schoolResources.options"
+    },
         
 ]
 
@@ -63,15 +70,46 @@ export default function SchoolResourcesLayout ({children}){
                 <nav className="w-full border-b border-gray-200 dark:border-gray-700 flex flex-1 items-center gap-3   px-6 py-2 bg-indigo-50 dark:bg-indigo-900/50 2xl:py-6  justify-between ">
                     
                     <Links/>
-                        {
+                    {
+                             currentRouteName === 'schoolResources.fields' ? 
 
-                            <Link href={`/`} className="px-4 py-2 rounded-lg font-medium text-sm 2xl:text-xl
+                            <Link href={route('schoolResources.addField')} className="px-4 py-2 rounded-lg font-medium text-sm 2xl:text-xl
                                 bg-indigo-500 text-white hover:bg-indigo-600
                                 dark:bg-indigo-700 dark:hover:bg-indigo-800
                                 transition-colors duration-200">
-                                Add New
+                                Add New Field
                             </Link>
-                        }
+                            : currentRouteName === 'schoolResources.groups' ?
+                            <Link href={route('schoolResources.addGroup')} className="px-4 py-2 rounded-lg font-medium text-sm 2xl:text-xl
+                                bg-indigo-500 text-white hover:bg-indigo-600
+                                dark:bg-indigo-700 dark:hover:bg-indigo-800
+                                transition-colors duration-200">
+                                Add New Group
+                            </Link>
+                            : currentRouteName === 'schoolResources.rooms' ?
+                            <Link href={route('schoolResources.addRoom')} className="px-4 py-2 rounded-lg font-medium text-sm 2xl:text-xl
+                                bg-indigo-500 text-white hover:bg-indigo-600
+                                dark:bg-indigo-700 dark:hover:bg-indigo-800
+                                transition-colors duration-200">
+                                Add New Room
+                            </Link>
+                            : currentRouteName === 'schoolResources.levels' ?
+                            <Link href={route('schoolResources.addLevel')} className="px-4 py-2 rounded-lg font-medium text-sm 2xl:text-xl
+                                bg-indigo-500 text-white hover:bg-indigo-600
+                                dark:bg-indigo-700 dark:hover:bg-indigo-800
+                                transition-colors duration-200">
+                                Add New Levels
+                            </Link>
+                            : currentRouteName === 'schoolResources.options' ?
+                            <Link href={route('schoolResources.addOption')} className="px-4 py-2 rounded-lg font-medium text-sm 2xl:text-xl
+                                bg-indigo-500 text-white hover:bg-indigo-600
+                                dark:bg-indigo-700 dark:hover:bg-indigo-800
+                                transition-colors duration-200">
+                                Add New Option
+                            </Link>      
+                            : ''
+                            
+                    }
                    
                 </nav>
     

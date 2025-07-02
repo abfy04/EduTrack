@@ -8,7 +8,7 @@ import HChart from "../../../../Components/Charts/HChart"
 import TimeFilter from "../../../../Components/form/TimeFilter"
 import BarChart from "../../../../Components/Charts/BarChart"
 import DeleteModal from "../../../../Components/Modals/DeleteModal"
-import { Cards } from "../../../../Components/Dashboard/newCards"
+//import { Cards } from "../../../../Components/Dashboard/newCards"
 import ProfileComponents from "../../../../Components/Common/ProfileComponents"
 import { BookOpen, GraduationCap, Users, ArrowLeft } from "lucide-react"
 
@@ -148,13 +148,3 @@ export default function ProfileFiliere() {
         </>
     )
 }
-
-
-
-
-
-
-
-
-
-    

@@ -19,7 +19,7 @@ const SchoolResources = () => {
   const stats = {
     // Levels and Filieres
     levels: {
-      total: 3,
+      total: 4,
       distribution: [
         { niveau: 'Technicien Spécialisé', filieres: 4 },
         { niveau: 'Technicien ', filieres: 5 },
@@ -188,7 +188,7 @@ const SchoolResources = () => {
 
       {/* Quick Actions Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <Link href="/schoolResources/addFiliere" className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow duration-200 cursor-pointer">
+        <Link href={route('schoolResources.addField')} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow duration-200 cursor-pointer">
           <div className="flex items-start gap-4">
             <div className="p-3 rounded-lg bg-blue-100 dark:bg-blue-900/50">
               <Plus className="size-6 2xl:size-9 text-blue-600 dark:text-blue-400" />

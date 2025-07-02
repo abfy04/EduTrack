@@ -77,24 +77,33 @@ class School extends Model
     public function school_structure_instances(){
         return $this->hasMany(SchoolStructureInstance::class,'school_id');
     }
-    public function getStructureInstanceAndUnit($unit){
-       
-        return DB::table('schools')
-        ->join('school_structure_instances', 'schools.id', '=', 'school_structure_instances.school_id')
-        ->join('school_structure_units', 'school_structure_units.id', '=', 'school_structure_instances.school_structure_unit_id')
-        ->join('structure_units', 'structure_units.id', '=', 'school_structure_units.unit_id')
-        // Add left join for parent instance
-        ->leftJoin('school_structure_instances as parent', 'school_structure_instances.parent_id', '=', 'parent.id')
-        ->where('schools.id', $this->id)
-        ->where('structure_units.unit_name', $unit)
-        ->select(
-            'school_structure_instances.name as instance_name',
-            'structure_units.unit_name',
-            'parent.name as parent_name'  // Add parent name to select
-        )
-        ->get();
-        
-    }
+    // app/Models/School.php
+
+public function getStructureInstanceAndUnit($unit)
+{
+    return SchoolStructureInstance::where('school_id', $this->id)
+        ->whereHas('school_structure_unit.unit', function ($query) use ($unit) {
+            $query->where('unit_name', $unit);
+        })
+        ->with(['school_structure_unit.unit', 'parent:id,name'])
+        ->select([
+            'id',
+            'name as instance_name',
+            'school_id',
+            'school_structure_unit_id',
+            'parent_id'
+        ])
+        ->get()
+        ->map(function ($instance) {
+            return [
+                'id' => $instance->id,
+                'instance_name' => $instance->instance_name,
+                'unit_name' => $instance->school_structure_unit->unit->unit_name,
+                'parent_name' => $instance->parent->name ?? null,
+            ];
+        });
+}
+
     public function getStructureInstanceByParentId($parentId){
        
         return DB::table('schools')

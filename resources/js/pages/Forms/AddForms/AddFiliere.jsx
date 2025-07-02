@@ -8,15 +8,29 @@ import { useState } from "react";
 import ConfirmAddModal from "../../../Components/Modals/ConfirmAdding";
 import SchoolResourcesLayout from '../../../layouts/SchoolResourcesLayout';
 
-const { niveaux } = usePage().props;
-const niveauxOptions = niveaux.map(item => ({ option: item, value: item }));
+
 
 
 export default function AddFiliere() {
+    const { niveaux } = usePage().props;
+const niveauxOptions = niveaux.map(item => ({
+  option: item.name, // What you see in the dropdown
+  value: item.id     // What is actually submitted
+}));
+  const { filieres, years } = usePage().props;
+
+  const filiereOptions = filieres.map(f => ({ option: f.name, value: f.id }));
+  const yearOptions = years.map(y => ({ option: y.name, value: y.id }));
+console.log(filiereOptions);
+
+
+
+
+
   const [isConfirmAddingOpen, setIsConfirmAddingOpen] = useState(false);
   const { errors: inertiaErrors } = usePage().props;
 
-  const { data, setData, post, reset, processing } = useForm({
+  const { data, setData, post, reset, processing } = useForm({  
     niveau: '',
     libel: ''
   });
@@ -41,11 +55,20 @@ export default function AddFiliere() {
     return true;
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+ const handleChange = (eOrName, value) => {
+  // console.log('handleChange:', eOrName, value);
+
+  if (typeof eOrName === 'string') {
+    // Custom select: handleChange('niveau', 'value')
+    setData(eOrName, value);
+    validateField(eOrName, value);
+  } else {
+    // Native input: handleChange(event)
+    const { name, value } = eOrName.target;
     setData(name, value);
     validateField(name, value);
-  };
+  }
+};
 
   const handleFocus = (name) => {
     setLocalErrors(prev => ({ ...prev, [name]: '' }));
@@ -57,6 +80,8 @@ export default function AddFiliere() {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    // console.log(data); // You should see: { niveau: 3, libel: "SD" }
+
     setIsConfirmAddingOpen(true);
   };
 
@@ -76,7 +101,8 @@ export default function AddFiliere() {
     reset();
     setIsConfirmAddingOpen(false);
   };
-
+  // console.log(niveauxOptions);
+  
   return (
     <>
       <SchoolResourcesLayout>
@@ -103,7 +129,7 @@ export default function AddFiliere() {
         maxWidth="md:max-w-3xl"
       >
         <FormContainer title="Filiere Information" icon={PencilRuler}>
-          <SelectField
+         <SelectField
             label={'Niveau'}
             name={'niveau'}
             value={data.niveau}
@@ -111,7 +137,13 @@ export default function AddFiliere() {
             handleChange={handleChange}
             items={niveauxOptions}
             error={inertiaErrors.niveau}
+            labelKey="option"
+            valueKey="value"
           />
+
+
+
+
           
           <TextField
             error={localErrors.libel || inertiaErrors.libel}
